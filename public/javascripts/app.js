@@ -100,44 +100,46 @@ window.require.define({"app": function(exports, require, module) {
 }});
 
 window.require.define({"application": function(exports, require, module) {
-  var App, Application, Checkin, Router, header, home;
-
-  App = require('app');
-
-  header = require('views/templates/header');
-
-  home = require('views/templates/home');
-
-  Router = require('routes');
-
-  Checkin = require('checkin');
+  var Application;
 
   Application = (function() {
 
     function Application() {}
 
     Application.prototype.init = function() {
-      this.$el = $('#main');
-      $(window).on('hashchange', this.router);
-      this.render();
-      return this.router();
-    };
-
-    Application.prototype.render = function() {
-      return $('header').html(header());
-    };
-
-    Application.prototype.router = function() {
-      var hash;
-      hash = window.location.hash.replace('#', '');
-      console.log(hash);
-      switch (hash) {
-        case '':
-          return $('#main').html(home());
-        case 'checkin':
-          return Checkin.start();
+      var _this;
+      $('[href=#]').on('click', function() {});
+      _this = this;
+      $(window).on('hashchange', function() {
+        if (window.location.hash === '#rate') {
+          return _this.rate();
+        }
+      });
+      $(window).trigger('hashchange');
+      if (navigator.geolocation) {
+        return this.geo = navigator.geolocation;
+      } else {
+        return this.geo = false;
       }
     };
+
+    Application.prototype.rate = function() {
+      if (this.geo) {
+        return this.geo.getCurrentPosition(this.rateGeo, this.rateNoGeo);
+      } else {
+        return this.rateNoGeo();
+      }
+    };
+
+    Application.prototype.rateGeo = function(pos) {
+      return alert('GEO!');
+    };
+
+    Application.prototype.rateNoGeo = function() {
+      return alert('No geo :(');
+    };
+
+    Application.prototype.geo = false;
 
     return Application;
 

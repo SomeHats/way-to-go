@@ -1,29 +1,33 @@
-App = require 'app'
-header = require 'views/templates/header'
-home = require 'views/templates/home'
-Router = require 'routes'
-Checkin = require 'checkin'
+
 class Application
   init: ->
-    @$el = $ '#main'
+    $('[href=#]').on 'click', ->
+      #$.mobile.changePage('', {transition: 'slideup'});
+      #
+    _this = @
 
-    $(window).on 'hashchange', @router
+    $(window).on 'hashchange', ->
+      if window.location.hash is '#rate'
+        _this.rate()
 
-    @render()
+    $(window).trigger 'hashchange'
 
-    @router()
+    if navigator.geolocation
+      @geo = navigator.geolocation
+    else @geo = off
 
-  render: ->
-    $('header').html header()
+  rate: ->
+    if @geo
+      @geo.getCurrentPosition @rateGeo, @rateNoGeo
+    else 
+      @rateNoGeo()
 
-  router: ->
-    hash = window.location.hash.replace('#', '')
-    console.log hash
-    switch hash
-      when ''
-        $('#main').html home()
+  rateGeo: (pos) ->
+    alert 'GEO!';
 
-      when 'checkin'
-        Checkin.start()
+  rateNoGeo: ->
+    alert 'No geo :('
+
+  geo: off
 
 module.exports = new Application
