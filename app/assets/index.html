@@ -11,6 +11,7 @@
   <!-- Google Webfonts! -->
   <link rel="stylesheet" href="stylesheets/app.css">
   <script src="javascripts/vendor.js"></script>
+  <script type="text/javascript" src="https://apis.google.com/js/auth.js?onload=init"></script>
   <script src="javascripts/app.js"></script>
   <script>
     require('initialize');
@@ -58,6 +59,43 @@
       </div>
     </div>
   </div>
+
+  <div data-role="page" id="rate_no-geo">
+    <div data-role="header">
+      <h2>Rate</h2>
+    </div>
+    <div data-role="content">
+      Oh no! Geolocation isn't available! :(
+    </div>
+    <div data-role="footer" data-id="fool" data-position="fixed">
+      <div data-role="navbar">
+        <ul>
+          <li><a href="#home">Search</a></li>
+          <li><a href="#rate" class="ui-btn-active ui-state-persist">Rate</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div data-role="page" id="rate_geo">
+    <div data-role="header">
+      <h2>Rate</h2>
+    </div>
+    <div data-role="content">
+      <div id="rate-map"></div>
+    </div>
+    <div data-role="footer" data-id="fool" data-position="fixed">
+      <div data-role="navbar">
+        <ul>
+          <li><a href="#home">Search</a></li>
+          <li><a href="#rate" class="ui-btn-active ui-state-persist">Rate</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
 
   <div data-role="page" id="about">
     <div data-role="header">

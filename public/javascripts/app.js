@@ -100,7 +100,7 @@ window.require.define({"app": function(exports, require, module) {
 }});
 
 window.require.define({"application": function(exports, require, module) {
-  var Application;
+  var Application, data;
 
   Application = (function() {
 
@@ -111,8 +111,13 @@ window.require.define({"application": function(exports, require, module) {
       $('[href=#]').on('click', function() {});
       _this = this;
       $(window).on('hashchange', function() {
-        if (window.location.hash === '#rate') {
-          return _this.rate();
+        switch (window.location.hash) {
+          case '#rate':
+            return _this.rate();
+          case '#rate_geo':
+            if (data.waitingForGeo === false) {
+              return $.mobile.changePage('#home');
+            }
         }
       });
       $(window).trigger('hashchange');
@@ -127,23 +132,49 @@ window.require.define({"application": function(exports, require, module) {
       if (this.geo) {
         return this.geo.getCurrentPosition(this.rateGeo, this.rateNoGeo);
       } else {
+        console.log('Geo not allowed');
         return this.rateNoGeo();
       }
     };
 
     Application.prototype.rateGeo = function(pos) {
-      return alert('GEO!');
+      data.waitingForGeo = true;
+      $.mobile.changePage('#rate_geo', {
+        transition: 'none'
+      });
+      return $.ajax('/gm/maps/api/place/search/json', {
+        data: {
+          key: 'AIzaSyALj6zax-yPF5UIfk77oOH4thM3BeEesVw',
+          location: pos.coords.latitude + ',' + pos.coords.longitude,
+          radius: pos.coords.accuracy * 2 + 100,
+          sensor: true
+        },
+        context: this,
+        dataType: 'json',
+        error: function() {
+          return console.log('Error!');
+        },
+        success: function(data) {
+          return console.log(data);
+        }
+      });
     };
 
     Application.prototype.rateNoGeo = function() {
-      return alert('No geo :(');
+      return $.mobile.changePage('#rate_no-geo', {
+        transition: 'pop'
+      });
     };
-
-    Application.prototype.geo = false;
 
     return Application;
 
   })();
+
+  data = {
+    geo: false,
+    key: 'AIzaSyALj6zax-yPF5UIfk77oOH4thM3BeEesVw',
+    waitingForGeo: false
+  };
 
   module.exports = new Application;
   

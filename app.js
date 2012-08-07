@@ -2,7 +2,8 @@ var application_root = __dirname,
   express = require("express"),
   path = require("path"),
   store = require(path.join(application_root, 'lib/store.js')),
-  fs = require('fs');
+  fs = require('fs'),
+  request = require('request');
 
 var app = express(),
 
@@ -27,13 +28,26 @@ app.configure(function(){
   //app.set('view engine', 'jade')
 });
 
-app.get('/api', function(req, res){
-  res.send('hello');
+app.get('/gm/*', function(req, res) {
+  var url = 'https://maps.googleapis.com/';
+  url = req.url.replace('/gm/', url);
+
+  request(url, function(err, reqRes, body) {
+    if(!err) {
+      res.send(body);
+    } else {
+      throw err;
+    }
+  });
+});
+
+app.get('/api', function(req, res) {
+  res.send('');
 });
 
 app.get('/api/place/:ref', function(req, res) {
   var data = {},
-    place = store.get('places', {ref: req.param.ref});
+    place = store.get('places', {ref: req.params.ref});
   if (place === undefined) {
     data.success = false;
   } else {
