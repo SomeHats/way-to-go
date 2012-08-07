@@ -1,27 +1,15 @@
 var application_root = __dirname,
   express = require("express"),
   path = require("path"),
-  mongoose = require('mongoose')
+  store = require(path.join(application_root, 'lib/store.js')),
   fs = require('fs');
 
 var app = express(),
 
 // Hackish, but it's nearly midnight...
-  index = "Please try again...",
   env = 'dev';
 
-fs.readFile(path.join(application_root, "public/index.html"), function (err, data) {
-  if (err) {
-    console.log("Could not load index");
-    throw err;
-  }
-
-  console.log('Loaded index file');
-  index = data.toString();
-});
-
 // model
-mongoose.connect('mongodb://localhost/waytogo');
 
 /*var Todo = mongoose.model('Todo', new mongoose.Schema({
   text: String,
@@ -33,20 +21,36 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
-  console.log(path.join(application_root, "public"))
   app.use(express.static(path.join(application_root, "public")));
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
   //app.set('views', path.join(application_root, "views"));
   //app.set('view engine', 'jade')
 });
 
-app.get('/', function(req, res){
-  res.send(index);
+app.get('/api', function(req, res){
+  res.send('hello');
 });
 
-app.get('/todo', function(req, res){
-  res.render('todo', {title: "MongoDB Backed TODO App"});
+app.get('/api/place/:ref', function(req, res) {
+  var data = {},
+    place = store.get('places', {ref: req.param.ref});
+  if (place === undefined) {
+    data.success = false;
+  } else {
+    data.success = true;
+    data.place = place;
+  }
+
+  res.send(JSON.stringify(data));
 });
+
+app.get('/api/*', function(req, res) {
+  res.status(404).send('404');
+});
+
+/*app.get('*', function(req, res){
+  res.sendfile(path.join(application_root, 'public/index.html'));
+});*/
 
 /*
 

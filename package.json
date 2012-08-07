@@ -1,6 +1,6 @@
 {
-  "author": "Your Name",
-  "name": "package-name",
+  "author": "Joe Dytrych",
+  "name": "way-to-go",
   "description": "Package description",
   "version": "0.0.1",
   "homepage": "",
@@ -12,31 +12,26 @@
     "node": "~0.6.10 || 0.8 || 0.9"
   },
   "scripts": {
-    "start": "brunch watch --server",
+    "start": "app.js",
     "test": "brunch test"
   },
   "dependencies": {
     "javascript-brunch": ">= 1.0 < 1.4",
     "coffee-script-brunch": ">= 1.0 < 1.4",
-
     "css-brunch": ">= 1.0 < 1.4",
     "stylus-brunch": ">= 1.0 < 1.4",
-
     "handlebars-brunch": ">= 1.0 < 1.4",
-
     "uglify-js-brunch": ">= 1.0 < 1.4",
     "clean-css-brunch": ">= 1.0 < 1.4",
-
     "auto-reload-brunch": "1.3.2",
-
     "express": "3.x",
     "mongodb": "1.1.2",
-    "mongoose": "2.7.3",
-    "mongoose-admin": "0.0.3"
+    "mongojs": "0.4.3" 
   },
   "devDependencies": {
     "chai": "1.0.4",
     "sinon": "1.3.4",
     "sinon-chai": "2.1.2"
-  }
+  },
+  "subdomain": "wtg"
 }

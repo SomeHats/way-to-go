@@ -100,51 +100,85 @@ window.require.define({"app": function(exports, require, module) {
 }});
 
 window.require.define({"application": function(exports, require, module) {
-  var App, Application, Router,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  var App, Application, Checkin, Router, header, home;
 
   App = require('app');
 
+  header = require('views/templates/header');
+
+  home = require('views/templates/home');
+
   Router = require('routes');
 
-  module.exports = Application = (function(_super) {
+  Checkin = require('checkin');
 
-    __extends(Application, _super);
+  Application = (function() {
 
-    function Application() {
-      return Application.__super__.constructor.apply(this, arguments);
-    }
+    function Application() {}
 
-    Application.prototype.tagName = 'div';
+    Application.prototype.init = function() {
+      this.$el = $('#main');
+      $(window).on('hashchange', this.router);
+      this.render();
+      return this.router();
+    };
 
-    Application.prototype.initialize = function() {
-      Backbone.sync = function(method, model, success, error) {
-        return success();
-      };
-      App.router = new Router;
-      return Backbone.history.start({
-        pushState: true,
-        root: '/'
-      });
+    Application.prototype.render = function() {
+      return $('header').html(header());
+    };
+
+    Application.prototype.router = function() {
+      var hash;
+      hash = window.location.hash.replace('#', '');
+      console.log(hash);
+      switch (hash) {
+        case '':
+          return $('#main').html(home());
+        case 'checkin':
+          return Checkin.start();
+      }
     };
 
     return Application;
 
-  })(Backbone.View);
+  })();
+
+  module.exports = new Application;
+  
+}});
+
+window.require.define({"checkin": function(exports, require, module) {
+  var Checkin, template;
+
+  template = require('views/templates/checkin');
+
+  Checkin = (function() {
+
+    function Checkin() {}
+
+    Checkin.prototype.start = function() {
+      return this.render();
+    };
+
+    Checkin.prototype.render = function() {
+      return $('#main').html(template());
+    };
+
+    return Checkin;
+
+  })();
+
+  module.exports = new Checkin;
   
 }});
 
 window.require.define({"initialize": function(exports, require, module) {
-  var Application;
+  var App;
 
-  Application = require('application');
+  App = require('application');
 
   $(document).on('ready', function() {
-    var app;
-    app = new Application;
-    $('#cont').attr('id', 'container');
-    return $('#container').append(app.el);
+    return App.init();
   });
   
 }});
@@ -184,5 +218,32 @@ window.require.define({"routes": function(exports, require, module) {
 
   })(Backbone.Router);
   
+}});
+
+window.require.define({"views/templates/checkin": function(exports, require, module) {
+  module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+    helpers = helpers || Handlebars.helpers;
+    var foundHelper, self=this;
+
+
+    return "<h2>Check in</h2>\n";});
+}});
+
+window.require.define({"views/templates/header": function(exports, require, module) {
+  module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+    helpers = helpers || Handlebars.helpers;
+    var foundHelper, self=this;
+
+
+    return "<h1>Way to Go</h1>\n";});
+}});
+
+window.require.define({"views/templates/home": function(exports, require, module) {
+  module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+    helpers = helpers || Handlebars.helpers;
+    var foundHelper, self=this;
+
+
+    return "<a href=\"#checkin\">Check In</a>\n";});
 }});
 

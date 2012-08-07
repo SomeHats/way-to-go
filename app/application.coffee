@@ -1,15 +1,29 @@
 App = require 'app'
+header = require 'views/templates/header'
+home = require 'views/templates/home'
 Router = require 'routes'
-module.exports = class Application extends Backbone.View
-  tagName: 'div'
+Checkin = require 'checkin'
+class Application
+  init: ->
+    @$el = $ '#main'
 
-  initialize: ->
-    Backbone.sync = (method, model, success, error) ->
-      success()
+    $(window).on 'hashchange', @router
 
-    # Init everything!
+    @render()
 
-    App.router = new Router
-    Backbone.history.start
-      pushState: true
-      root: '/'
+    @router()
+
+  render: ->
+    $('header').html header()
+
+  router: ->
+    hash = window.location.hash.replace('#', '')
+    console.log hash
+    switch hash
+      when ''
+        $('#main').html home()
+
+      when 'checkin'
+        Checkin.start()
+
+module.exports = new Application
