@@ -17,18 +17,17 @@ function toNum(str) {
   }
 }
 
+var types = ['access', 'parking', 'toilet', 'staff'],
+  forEachType = function (callback) {
+    for (var i = 0; i < types.length; i += 1) {
+      callback(types[i]);
+    }
+  };
+
 var app = express(),
 
 // Hackish, but it's nearly midnight...
   env = 'dev';
-
-// model
-
-/*var Todo = mongoose.model('Todo', new mongoose.Schema({
-  text: String,
-  done: Boolean,
-  order: Number
-}));*/
 
 app.configure(function(){
   app.use(express.bodyParser());
@@ -41,6 +40,7 @@ app.configure(function(){
 });
 
 app.get('/gm/*', function(req, res) {
+  console.log('Generic Google Maps api request')
   var url = 'https://maps.googleapis.com/';
   url = req.url.replace('/gm/', url);
 
@@ -55,10 +55,12 @@ app.get('/gm/*', function(req, res) {
 });
 
 app.get('/api', function(req, res) {
-  res.send('');
+  console.log('Blank API request.');
+  res.send('Way to Go');
 });
 
 app.get('/api/place/:ref', function(req, res) {
+  console.log('Place info request.')
   var data = {},
     place = store.get('places', {ref: req.params.ref});
   if (place === undefined) {
@@ -72,15 +74,18 @@ app.get('/api/place/:ref', function(req, res) {
 });
 
 app.get('/api/rate/:data', function(req, res) {
+  console.log('Rate request...')
   data = JSON.parse(req.params.data);
-  console.log(typeof data.access);
-  if (!data.access) data.access = null;
-  if (!data.parking) data.parking = null;
-  if (!data.staff) data.staff = null;
-  if (!data.toilet) data.toilet = null;
+  forEachType(function(type) {
+    if(data[type]) {
+      data[type] = toNum(data[type]);
+    } else {
+      data[type] = null;
+    }
+  });
 
-  var existing = store.get('places', {name: data.place.name}, function(existing) {
-    /*name: data.place.name,
+  var existing = store.get('places', {
+    name: data.place.name,
     lat: {
       $gt: data.place.lat - 0.002,
       $lt: data.place.lat + 0.002
@@ -88,112 +93,54 @@ app.get('/api/rate/:data', function(req, res) {
     lng: {
       $gt: data.place.lng - 0.002,
       $lt: data.place.lng + 0.002
-    }});*/
+    }
+  }, function(existing) {
+    console.log('Results called');
+    if (existing === undefined) {
+      console.log('Place ' + data.place.name + ' does not already exist');
 
-  console.log(existing);
+      existing = {
+        lat: data.place.lat,
+        lng: data.place.lng,
+        name: data.place.name
+      };
 
-  data.access = toNum(data.access);
-  data.parking = toNum(data.parking);
-  data.staff = toNum(data.staff);
-  data.toilets = toNum(data.toilets);
+      forEachType(function(type) {
+        existing[type] = data[type];
+        if(data[type] !== null) {
+          existing[type + '-count'] = 1;
+        } else {
+          existing[type + '-count'] = 0;
+        }
+      })
 
-  if (existing === undefined) {
-    if (data.access === null) data.access = 0.5;
-    if (data.parking === null) data.parking = 0.5;
-    if (data.staff === null) data.staff = 0.5;
-    if (data.toilets === null) data.toilets = 0.5;
-    existing = {
-      lat: data.place.lat,
-      lng: data.place.lng,
-      name: data.place.name,
-      access: data.access,
-      'access-count': 1,
-      parking: data.parking,
-      'parking-count': 1,
-      staff: data.staff,
-      'staff-count': 1,
-      toilets: data.toilets,
-      'toilets-count': 1
-    };
-    store.set('places', existing);
-  }
+      console.log('Creating ' + existing.name);
+      store.set('places', existing);
 
-  res.send('{"success":true}');
+    } else {
+      console.log('Place ' + existing.name + ' already exists.');
+      console.log('before');
+      console.log(existing);
+      forEachType(function(type) {
+        if (data[type] !== null) {
+          existing[type + '-count'] += 1;
+          existing[type] += data[type];
+        }
+      });
+      console.log('after');
+      console.log(existing)
+    }
+
+    res.send('{"success":true}');
+
   });
 });
 
 app.get('/api/*', function(req, res) {
   res.status(404).send("{'success':false}");
+  console.log('Unknown API request: ' + req.url)
 });
 
-/*app.get('*', function(req, res){
-  res.sendfile(path.join(application_root, 'public/index.html'));
-});*/
+app.listen(3000);
 
-/*
-
-app.get('/api/todos', function(req, res){
-  return Todo.find(function(err, todos) {
-    return res.send(todos);
-  });
-});
-
-app.get('/api/todos/:id', function(req, res){
-  return Todo.findById(req.params.id, function(err, todo) {
-    if (!err) {
-      return res.send(todo);
-    }
-  });
-});
-
-app.put('/api/todos/:id', function(req, res){
-  return Todo.findById(req.params.id, function(err, todo) {
-    todo.text = req.body.text;
-    todo.done = req.body.done;
-    todo.order = req.body.order;
-    return todo.save(function(err) {
-      if (!err) {
-        console.log("updated");
-      }
-      return res.send(todo);
-    });
-  });
-});
-
-app.post('/api/todos', function(req, res){
-  var todo;
-  todo = new Todo({
-    text: req.body.text,
-    done: req.body.done,
-    order: req.body.order
-  });
-  todo.save(function(err) {
-    if (!err) {
-      return console.log("created");
-    }
-  });
-  return res.send(todo);
-});
-
-app.delete('/api/todos/:id', function(req, res){
-  return Todo.findById(req.params.id, function(err, todo) {
-    return todo.remove(function(err) {
-      if (!err) {
-        console.log("removed");
-        return res.send('')
-      }
-    });
-  });
-});*/
-
-if (env === 'dev') {
-  app.listen(3000);
-
-  console.log('Server started at localhost:3000');
-} else if (env === 'prod') {
-  app.listen(80);
-
-  console.log('Server started at localhost:80');
-} else {
-  console.log('Bad env');
-}
+console.log('Server started at localhost:3000');
