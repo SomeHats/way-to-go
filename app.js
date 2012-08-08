@@ -36,7 +36,8 @@ app.get('/gm/*', function(req, res) {
     if(!err) {
       res.send(body);
     } else {
-      throw err;
+      console.log('Could not get google map request');
+      res.send("{'success': false}");
     }
   });
 });

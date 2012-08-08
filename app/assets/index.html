@@ -47,7 +47,12 @@
       <h2>Rate</h2>
     </div>
     <div data-role="content">
-      Geolocating...
+      <p id="rate-geo-notice">Geolocating...</p>
+      <p id="rate-loading-notice" class="hidden">Loading data...</p>
+      <div id="rate-nogeo-notice" class="hidden">
+        Sorry! Something went wrong. Make sure you have Geolocation enabled and try again.
+        <a href="#home" data-role="button">Go Back</a>
+      </div>
     </div>
     <div data-role="footer" data-id="fool" data-position="fixed">
       <div data-role="navbar">
@@ -60,30 +65,12 @@
     </div>
   </div>
 
-  <div data-role="page" id="rate_no-geo">
+  <div data-role="page" id="rate-nearby">
     <div data-role="header">
-      <h2>Rate</h2>
+      <h2>Rate - Nearby</h2>
     </div>
     <div data-role="content">
-      Oh no! Geolocation isn't available! :(
-    </div>
-    <div data-role="footer" data-id="fool" data-position="fixed">
-      <div data-role="navbar">
-        <ul>
-          <li><a href="#home">Search</a></li>
-          <li><a href="#rate" class="ui-btn-active ui-state-persist">Rate</a></li>
-          <li><a href="#about">About</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div data-role="page" id="rate_geo">
-    <div data-role="header">
-      <h2>Rate</h2>
-    </div>
-    <div data-role="content">
-      <div id="rate-map"></div>
+      
     </div>
     <div data-role="footer" data-id="fool" data-position="fixed">
       <div data-role="navbar">

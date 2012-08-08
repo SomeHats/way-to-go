@@ -1,3 +1,7 @@
+Data = require 'data'
+Types = require 'types'
+RateNearby = require 'templates/rate-nearby'
+Rate = require 'rate'
 
 class Application
   init: ->
@@ -10,8 +14,8 @@ class Application
       switch window.location.hash
         when '#rate'
           _this.rate()
-        when '#rate_geo'
-          if data.waitingForGeo is false
+        when '#rate-nearby'
+          if Data.nearbyAvailable is false
             $.mobile.changePage '#home'
 
 
@@ -22,6 +26,8 @@ class Application
     else @geo = off
 
   rate: ->
+    $('#rate-nogeo-notice, #rate-loading-notice').addClass 'hidden'
+    $('#rate-geo-notice').removeClass 'hidden'
     if @geo
       @geo.getCurrentPosition @rateGeo, @rateNoGeo
     else
@@ -29,8 +35,8 @@ class Application
       @rateNoGeo()
 
   rateGeo: (pos) ->
-    data.waitingForGeo = true
-    $.mobile.changePage '#rate_geo', transition: 'none'
+    Data.waitingForGeo = true
+    $('#rate-loading-notice').removeClass 'hidden'
 
     #location = new google.maps.LatLng pos.coords.latitude, pos.coords.longitude
     #
@@ -45,20 +51,31 @@ class Application
         location: pos.coords.latitude + ',' + pos.coords.longitude
         radius: pos.coords.accuracy * 2 + 100
         sensor: true
+        types: Types
       context: @
       dataType: 'json'
       error: ->
         console.log 'Error!'
+        @rateNoGeo()
       success: (data) ->
         console.log data
+        Data.nearbyAvailable = true
+        Data.nearby = data.results
+        `for (i=0; i < data.results.length; i++) {
+          data.results[i].index = i
+        }`
+        $.mobile.changePage '#rate-nearby', transition: 'none'
+        $('#rate-nearby [data-role=content]').html(RateNearby data).trigger 'create'
+        $('#rate-nearby [data-role=content] a').on 'click', Rate.start
 
 
   rateNoGeo: ->
-    $.mobile.changePage '#rate_no-geo', transition: 'pop'
+    $('#rate-geo-notice, #rate-loading-notice').addClass 'hidden'
+    $('#rate-nogeo-notice').removeClass 'hidden'
 
-data =
-  geo: off
-  key: 'AIzaSyALj6zax-yPF5UIfk77oOH4thM3BeEesVw'
-  waitingForGeo: false
+Data.geo = off
+Data.key = 'AIzaSyALj6zax-yPF5UIfk77oOH4thM3BeEesVw'
+Data.waitingForGeo = false
+Data.nearbyAvailable = false
 
 module.exports = new Application

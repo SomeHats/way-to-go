@@ -100,7 +100,15 @@ window.require.define({"app": function(exports, require, module) {
 }});
 
 window.require.define({"application": function(exports, require, module) {
-  var Application, data;
+  var Application, Data, Rate, RateNearby, Types;
+
+  Data = require('data');
+
+  Types = require('types');
+
+  RateNearby = require('templates/rate-nearby');
+
+  Rate = require('rate');
 
   Application = (function() {
 
@@ -114,8 +122,8 @@ window.require.define({"application": function(exports, require, module) {
         switch (window.location.hash) {
           case '#rate':
             return _this.rate();
-          case '#rate_geo':
-            if (data.waitingForGeo === false) {
+          case '#rate-nearby':
+            if (Data.nearbyAvailable === false) {
               return $.mobile.changePage('#home');
             }
         }
@@ -129,6 +137,8 @@ window.require.define({"application": function(exports, require, module) {
     };
 
     Application.prototype.rate = function() {
+      $('#rate-nogeo-notice, #rate-loading-notice').addClass('hidden');
+      $('#rate-geo-notice').removeClass('hidden');
       if (this.geo) {
         return this.geo.getCurrentPosition(this.rateGeo, this.rateNoGeo);
       } else {
@@ -138,70 +148,63 @@ window.require.define({"application": function(exports, require, module) {
     };
 
     Application.prototype.rateGeo = function(pos) {
-      data.waitingForGeo = true;
-      $.mobile.changePage('#rate_geo', {
-        transition: 'none'
-      });
+      Data.waitingForGeo = true;
+      $('#rate-loading-notice').removeClass('hidden');
       return $.ajax('/gm/maps/api/place/search/json', {
         data: {
           key: 'AIzaSyALj6zax-yPF5UIfk77oOH4thM3BeEesVw',
           location: pos.coords.latitude + ',' + pos.coords.longitude,
           radius: pos.coords.accuracy * 2 + 100,
-          sensor: true
+          sensor: true,
+          types: Types
         },
         context: this,
         dataType: 'json',
         error: function() {
-          return console.log('Error!');
+          console.log('Error!');
+          return this.rateNoGeo();
         },
         success: function(data) {
-          return console.log(data);
+          console.log(data);
+          Data.nearbyAvailable = true;
+          Data.nearby = data.results;
+          for (i=0; i < data.results.length; i++) {
+            data.results[i].index = i
+          };
+
+          $.mobile.changePage('#rate-nearby', {
+            transition: 'none'
+          });
+          $('#rate-nearby [data-role=content]').html(RateNearby(data)).trigger('create');
+          return $('#rate-nearby [data-role=content] a').on('click', Rate.start);
         }
       });
     };
 
     Application.prototype.rateNoGeo = function() {
-      return $.mobile.changePage('#rate_no-geo', {
-        transition: 'pop'
-      });
+      $('#rate-geo-notice, #rate-loading-notice').addClass('hidden');
+      return $('#rate-nogeo-notice').removeClass('hidden');
     };
 
     return Application;
 
   })();
 
-  data = {
-    geo: false,
-    key: 'AIzaSyALj6zax-yPF5UIfk77oOH4thM3BeEesVw',
-    waitingForGeo: false
-  };
+  Data.geo = false;
+
+  Data.key = 'AIzaSyALj6zax-yPF5UIfk77oOH4thM3BeEesVw';
+
+  Data.waitingForGeo = false;
+
+  Data.nearbyAvailable = false;
 
   module.exports = new Application;
   
 }});
 
-window.require.define({"checkin": function(exports, require, module) {
-  var Checkin, template;
-
-  template = require('views/templates/checkin');
-
-  Checkin = (function() {
-
-    function Checkin() {}
-
-    Checkin.prototype.start = function() {
-      return this.render();
-    };
-
-    Checkin.prototype.render = function() {
-      return $('#main').html(template());
-    };
-
-    return Checkin;
-
-  })();
-
-  module.exports = new Checkin;
+window.require.define({"data": function(exports, require, module) {
+  
+  module.exports = {};
   
 }});
 
@@ -216,67 +219,69 @@ window.require.define({"initialize": function(exports, require, module) {
   
 }});
 
-window.require.define({"routes": function(exports, require, module) {
-  var App, Router,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+window.require.define({"rate": function(exports, require, module) {
+  var Data, Rate;
 
-  App = require('app');
+  Data = require('data');
 
-  module.exports = Router = (function(_super) {
+  Rate = (function() {
 
-    __extends(Router, _super);
+    function Rate() {}
 
-    function Router() {
-      return Router.__super__.constructor.apply(this, arguments);
-    }
-
-    Router.prototype.routes = {
-      "": "reset",
-      ":search": "search"
+    Rate.prototype.start = function(e) {
+      var el, place;
+      el = $(this);
+      return place = Data.nearby[el.attr('data-index')];
     };
 
-    Router.prototype.search = function(term) {
-      App.search.set('term', decodeURIComponent(term));
-      return App.search.go();
-    };
+    return Rate;
 
-    Router.prototype.reset = function() {
-      if (App.search.get('results')) {
-        return App.search.cancel();
-      }
-    };
+  })();
 
-    return Router;
-
-  })(Backbone.Router);
+  module.exports = new Rate;
   
 }});
 
-window.require.define({"views/templates/checkin": function(exports, require, module) {
+window.require.define({"templates/rate-nearby": function(exports, require, module) {
   module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
     helpers = helpers || Handlebars.helpers;
-    var foundHelper, self=this;
+    var buffer = "", stack1, stack2, foundHelper, tmp1, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
 
+  function program1(depth0,data) {
+    
+    var buffer = "", stack1;
+    buffer += "\n  <li><a href=\"#\" data-ref=\"";
+    stack1 = depth0.reference;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.reference", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\" data-index=\"";
+    stack1 = depth0.index;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.index", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\">";
+    stack1 = depth0.name;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "this.name", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "</a></li>\n  ";
+    return buffer;}
 
-    return "<h2>Check in</h2>\n";});
+    buffer += "<ul data-role=\"listview\">\n  ";
+    foundHelper = helpers.results;
+    stack1 = foundHelper || depth0.results;
+    stack2 = helpers.each;
+    tmp1 = self.program(1, program1, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n</ul>\n";
+    return buffer;});
 }});
 
-window.require.define({"views/templates/header": function(exports, require, module) {
-  module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-    helpers = helpers || Handlebars.helpers;
-    var foundHelper, self=this;
-
-
-    return "<h1>Way to Go</h1>\n";});
-}});
-
-window.require.define({"views/templates/home": function(exports, require, module) {
-  module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-    helpers = helpers || Handlebars.helpers;
-    var foundHelper, self=this;
-
-
-    return "<a href=\"#checkin\">Check In</a>\n";});
+window.require.define({"types": function(exports, require, module) {
+  
+  module.exports = 'airport|amusement_park|art_gallery|bakery|bank|bar|beauty_salon|bicycle_store|book_store|bowling_alley|bus_station|cafe|campground|car_dealer|car_rental|car_repair|casino|cemetery|church|city_hall|clothing_store|convenience_store|courthouse|dentist|department_store|doctor|electronics_store|embassy|florist|food|furniture_store|gas_station|grocery_or_supermarket|gym|hair_care|hardware_store|hindu_temple|home_goods_store|hospital|jewelry_store|laundry|library|liquor_store|local_government_office|lodging|meal_delivery|meal_takeaway|mosque|movie_rental|movie_theater|museum|night_club|parking|pet_store|pharmacy|physiotherapist|place_of_worship|post_office|restaurant|school|shoe_store|shopping_mall|spa|stadium|subway_station|synagogue|taxi_stand|train_station|university|zoo';
+  
 }});
 
