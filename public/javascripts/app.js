@@ -159,6 +159,7 @@ window.require.define({"application": function(exports, require, module) {
     Application.prototype.rate = function() {
       $('#rate-nogeo-notice, #rate-loading-notice').addClass('hidden');
       $('#rate-geo-notice').removeClass('hidden');
+      $('#rate-nearby h2').text('Rate');
       if (this.geo) {
         return this.geo.getCurrentPosition(this.rateGeo, this.rateNoGeo);
       } else {
@@ -335,6 +336,7 @@ window.require.define({"rate": function(exports, require, module) {
             if (data.success) {
               console.log('Success!');
               $.mobile.hidePageLoadingMsg();
+              alert('Done! Thanks for rating ' + Data.place.name + '!');
               Data.place = null;
               return $.mobile.changePage('#home');
             } else {

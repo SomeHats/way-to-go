@@ -42,6 +42,7 @@ class Rate
           if data.success
             console.log 'Success!'
             $.mobile.hidePageLoadingMsg()
+            alert 'Done! Thanks for rating ' + Data.place.name + '!'
             Data.place = null
             $.mobile.changePage '#home'
           else

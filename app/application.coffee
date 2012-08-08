@@ -44,6 +44,7 @@ class Application
   rate: ->
     $('#rate-nogeo-notice, #rate-loading-notice').addClass 'hidden'
     $('#rate-geo-notice').removeClass 'hidden'
+    $('#rate-nearby h2').text 'Rate'
     if @geo
       @geo.getCurrentPosition @rateGeo, @rateNoGeo
     else
