@@ -216,13 +216,19 @@ window.require.define({"initialize": function(exports, require, module) {
   $(document).on('ready', function() {
     return App.init();
   });
+
+  $(document).bind('mobileinit', function() {
+    return $.mobile.defaultPageTransition = 'none';
+  });
   
 }});
 
 window.require.define({"rate": function(exports, require, module) {
-  var Data, Rate;
+  var Data, Rate, Render;
 
   Data = require('data');
+
+  Render = require('templates/rate');
 
   Rate = (function() {
 
@@ -231,7 +237,16 @@ window.require.define({"rate": function(exports, require, module) {
     Rate.prototype.start = function(e) {
       var el, place;
       el = $(this);
-      return place = Data.nearby[el.attr('data-index')];
+      place = Data.nearby[el.attr('data-index')];
+      $('#rate-nearby h2').text('Rate - ' + place.name);
+      $('#rate-nearby [data-role=content]').html(Render(place)).trigger('create');
+      return $('#rate-nearby input[type=checkbox]').on('change', function() {
+        var $this, name;
+        $this = $(this);
+        name = $this.attr('name').replace('-chk', '');
+        console.log(($this.prop('checked') ? 'enabled' : 'disabled'));
+        return $('#rate-nearby input[name=' + name + ']').checkboxradio($this.prop('checked') ? 'enable' : 'disable');
+      }).trigger('change');
     };
 
     return Rate;
@@ -277,6 +292,15 @@ window.require.define({"templates/rate-nearby": function(exports, require, modul
     if(stack1 || stack1 === 0) { buffer += stack1; }
     buffer += "\n</ul>\n";
     return buffer;});
+}});
+
+window.require.define({"templates/rate": function(exports, require, module) {
+  module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+    helpers = helpers || Handlebars.helpers;
+    var foundHelper, self=this;
+
+
+    return "<form>\n  <div data-role=\"fieldcontain\">\n    <fieldset data-role=\"controlgroup\" data-type=\"horizontal\" class=\"trafficlight\">\n      <legend>Wheelchair Access:</legend>\n      <input type=\"radio\" name=\"wheelchair\" id=\"wheelchair-1\" value=\"bad\" />\n      <label for=\"wheelchair-1\" class=\"red\">Bad</label>\n      <input type=\"radio\" name=\"wheelchair\" id=\"wheelchair-2\" value=\"ok\" />\n      <label for=\"wheelchair-2\" class=\"amber\">Ok</label>\n      <input type=\"radio\" name=\"wheelchair\" id=\"wheelchair-3\" value=\"good\" />\n      <label for=\"wheelchair-3\" class=\"green\">Great</label>\n    </fieldset>\n  </div>\n\n  <div data-role=\"fieldcontain\">\n    <label><input type=\"checkbox\" name=\"parking-chk\">Parking</label>\n    <fieldset data-role=\"controlgroup\" data-type=\"horizontal\" class=\"trafficlight\">\n      <input type=\"radio\" name=\"parking\" id=\"parking-1\" value=\"bad\" />\n      <label for=\"parking-1\" class=\"red\">Bad</label>\n      <input type=\"radio\" name=\"parking\" id=\"parking-2\" value=\"ok\" />\n      <label for=\"parking-2\" class=\"amber\">Ok</label>\n      <input type=\"radio\" name=\"parking\" id=\"parking-3\" value=\"good\" />\n      <label for=\"parking-3\" class=\"green\">Great</label>\n    </fieldset>\n  </div>\n\n  <div data-role=\"fieldcontain\">\n    <label><input type=\"checkbox\" name=\"toilet-chk\">Toilet</label>\n    <fieldset data-role=\"controlgroup\" data-type=\"horizontal\" class=\"trafficlight\">\n      <input type=\"radio\" name=\"toilet\" id=\"toilet-1\" value=\"bad\" />\n      <label for=\"toilet-1\" class=\"red\">Bad</label>\n      <input type=\"radio\" name=\"toilet\" id=\"toilet-2\" value=\"ok\" />\n      <label for=\"toilet-2\" class=\"amber\">Ok</label>\n      <input type=\"radio\" name=\"toilet\" id=\"toilet-3\" value=\"good\" />\n      <label for=\"toilet-3\" class=\"green\">Great</label>\n    </fieldset>\n  </div>\n\n  <div data-role=\"fieldcontain\">\n    <label><input type=\"checkbox\" name=\"staff-chk\">Staff</label>\n    <fieldset data-role=\"controlgroup\" data-type=\"horizontal\" class=\"trafficlight\">\n      <input type=\"radio\" name=\"staff\" id=\"staff-1\" value=\"bad\" />\n      <label for=\"staff-1\" class=\"red\">Bad</label>\n      <input type=\"radio\" name=\"staff\" id=\"staff-2\" value=\"ok\" />\n      <label for=\"staff-2\" class=\"amber\">Ok</label>\n      <input type=\"radio\" name=\"staff\" id=\"staff-3\" value=\"good\" />\n      <label for=\"staff-3\" class=\"green\">Great</label>\n    </fieldset>\n  </div>\n\n</form>\n";});
 }});
 
 window.require.define({"types": function(exports, require, module) {

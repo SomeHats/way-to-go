@@ -1,24 +1,37 @@
 @import 'nib'
 
-html, body
-  height 100%
-  padding 0
-  margin 0
+fieldset.trafficlight .ui-radio
+  width: 33.33%
 
-body
-  background-color black
+  label
+    width: 100%
 
-#container
-  height 100%
-  width 100%
-  overflow auto
-  color black
-  font-weight 300
-  background-color white
-  animation FadeIn 0.5s ease
+  .red
+    background: linear-gradient(top, #FC5546, #E52D20)
 
-@keyframes FadeIn 
-  from 
-    opacity 0
-  to
-    opacity 1
+    &:hover, &.ui-btn-active
+      background: linear-gradient(top, #E52D20, #FC5546)
+
+    &.ui-btn-active
+      box-shadow: 0 0 7px #FC5546
+      border-color: #FC5546
+
+  .amber
+    background: linear-gradient(top, #F7AA45, #E28E1F)
+
+    &:hover, &.ui-btn-active
+      background: linear-gradient(top, #E28E1F, #F7AA45)
+
+    &.ui-btn-active
+      box-shadow: 0 0 7px #F7AA45
+      border-color: #F7AA45
+
+  .green
+    background: linear-gradient(top, #73F444, #52E01F)
+
+    &:hover, &.ui-btn-active
+      background: linear-gradient(top, #52E01F, #73F444)
+
+    &.ui-btn-active
+      box-shadow: 0 0 7px #73F444
+      border-color: #73F444
