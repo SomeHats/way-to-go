@@ -50,7 +50,7 @@ class Application
       data:
         key: 'AIzaSyALj6zax-yPF5UIfk77oOH4thM3BeEesVw'
         location: pos.coords.latitude + ',' + pos.coords.longitude
-        radius: pos.coords.accuracy * 2 + 100
+        rankby: 'distance'
         sensor: true
         types: Types
       context: @
