@@ -119,16 +119,12 @@ app.get('/api/rate/:data', function(req, res) {
 
     } else {
       console.log('Place ' + existing.name + ' already exists.');
-      console.log('before');
-      console.log(existing);
       forEachType(function(type) {
         if (data[type] !== null) {
           existing[type + '-count'] += 1;
           existing[type] += data[type];
         }
       });
-      console.log('after');
-      console.log(existing)
     }
 
     res.send('{"success":true}');
