@@ -1,7 +1,8 @@
-Data = require 'data'
-Types = require 'types'
+Data = require 'lib/data'
+Types = require 'lib/types'
 RateNearby = require 'templates/rate-nearby'
 Rate = require 'rate'
+Geocode = require 'lib/geocode'
 
 class Application
   init: ->
@@ -32,6 +33,13 @@ class Application
     if navigator.geolocation
       @geo = navigator.geolocation
     else @geo = off
+
+    Geocode @geo, (addr) ->
+      $loc = $ '#location'
+      if $loc.val() is ''
+        $loc.val addr
+    , ->
+      console.log('fail');
 
   rate: ->
     $('#rate-nogeo-notice, #rate-loading-notice').addClass 'hidden'

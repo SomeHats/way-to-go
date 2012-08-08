@@ -100,15 +100,17 @@ window.require.define({"app": function(exports, require, module) {
 }});
 
 window.require.define({"application": function(exports, require, module) {
-  var Application, Data, Rate, RateNearby, Types;
+  var Application, Data, Geocode, Rate, RateNearby, Types;
 
-  Data = require('data');
+  Data = require('lib/data');
 
-  Types = require('types');
+  Types = require('lib/types');
 
   RateNearby = require('templates/rate-nearby');
 
   Rate = require('rate');
+
+  Geocode = require('lib/geocode');
 
   Application = (function() {
 
@@ -139,10 +141,19 @@ window.require.define({"application": function(exports, require, module) {
       });
       $(window).trigger('hashchange');
       if (navigator.geolocation) {
-        return this.geo = navigator.geolocation;
+        this.geo = navigator.geolocation;
       } else {
-        return this.geo = false;
+        this.geo = false;
       }
+      return Geocode(this.geo, function(addr) {
+        var $loc;
+        $loc = $('#location');
+        if ($loc.val() === '') {
+          return $loc.val(addr);
+        }
+      }, function() {
+        return console.log('fail');
+      });
     };
 
     Application.prototype.rate = function() {
@@ -213,12 +224,6 @@ window.require.define({"application": function(exports, require, module) {
   
 }});
 
-window.require.define({"data": function(exports, require, module) {
-  
-  module.exports = {};
-  
-}});
-
 window.require.define({"initialize": function(exports, require, module) {
   var App;
 
@@ -234,10 +239,50 @@ window.require.define({"initialize": function(exports, require, module) {
   
 }});
 
+window.require.define({"lib/data": function(exports, require, module) {
+  
+  module.exports = {};
+  
+}});
+
+window.require.define({"lib/geocode": function(exports, require, module) {
+  
+  module.exports = function(geo, success, fail) {
+    if (geo === false) {
+      return fail();
+    } else {
+      return geo.getCurrentPosition(function(pos) {
+        var geocoder, latlng;
+        latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        geocoder = new google.maps.Geocoder;
+        return geocoder.geocode({
+          latLng: latlng
+        }, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            return success(results[0].formatted_address);
+          } else {
+            console.log(status);
+            return fail();
+          }
+        });
+      }, function() {
+        return fail();
+      });
+    }
+  };
+  
+}});
+
+window.require.define({"lib/types": function(exports, require, module) {
+  
+  module.exports = 'airport|amusement_park|art_gallery|bakery|bank|bar|beauty_salon|bicycle_store|book_store|bowling_alley|bus_station|cafe|campground|car_dealer|car_rental|car_repair|casino|cemetery|church|city_hall|clothing_store|convenience_store|courthouse|dentist|department_store|doctor|electronics_store|embassy|florist|food|furniture_store|gas_station|grocery_or_supermarket|gym|hair_care|hardware_store|hindu_temple|home_goods_store|hospital|jewelry_store|laundry|library|liquor_store|local_government_office|lodging|meal_delivery|meal_takeaway|mosque|movie_rental|movie_theater|museum|night_club|parking|pet_store|pharmacy|physiotherapist|place_of_worship|post_office|restaurant|school|shoe_store|shopping_mall|spa|stadium|subway_station|synagogue|taxi_stand|train_station|university|zoo';
+  
+}});
+
 window.require.define({"rate": function(exports, require, module) {
   var Data, Rate, Render;
 
-  Data = require('data');
+  Data = require('lib/data');
 
   Render = require('templates/rate');
 
@@ -352,11 +397,5 @@ window.require.define({"templates/rate": function(exports, require, module) {
 
 
     return "<form id=\"rate-form\">\n  <div data-role=\"fieldcontain\">\n    <fieldset data-role=\"controlgroup\" data-type=\"horizontal\" class=\"trafficlight\">\n      <legend>Wheelchair Access:</legend>\n      <input type=\"radio\" name=\"wheelchair\" id=\"wheelchair-1\" value=\"bad\" />\n      <label for=\"wheelchair-1\" class=\"red\">Bad</label>\n      <input type=\"radio\" name=\"wheelchair\" id=\"wheelchair-2\" value=\"ok\" />\n      <label for=\"wheelchair-2\" class=\"amber\">Ok</label>\n      <input type=\"radio\" name=\"wheelchair\" id=\"wheelchair-3\" value=\"good\" />\n      <label for=\"wheelchair-3\" class=\"green\">Great</label>\n    </fieldset>\n  </div>\n\n  <div data-role=\"fieldcontain\">\n    <label><input type=\"checkbox\" name=\"parking-chk\">Parking</label>\n    <fieldset data-role=\"controlgroup\" data-type=\"horizontal\" class=\"trafficlight\">\n      <input type=\"radio\" name=\"parking\" id=\"parking-1\" value=\"bad\" />\n      <label for=\"parking-1\" class=\"red\">Bad</label>\n      <input type=\"radio\" name=\"parking\" id=\"parking-2\" value=\"ok\" />\n      <label for=\"parking-2\" class=\"amber\">Ok</label>\n      <input type=\"radio\" name=\"parking\" id=\"parking-3\" value=\"good\" />\n      <label for=\"parking-3\" class=\"green\">Great</label>\n    </fieldset>\n  </div>\n\n  <div data-role=\"fieldcontain\">\n    <label><input type=\"checkbox\" name=\"toilet-chk\">Toilet</label>\n    <fieldset data-role=\"controlgroup\" data-type=\"horizontal\" class=\"trafficlight\">\n      <input type=\"radio\" name=\"toilet\" id=\"toilet-1\" value=\"bad\" />\n      <label for=\"toilet-1\" class=\"red\">Bad</label>\n      <input type=\"radio\" name=\"toilet\" id=\"toilet-2\" value=\"ok\" />\n      <label for=\"toilet-2\" class=\"amber\">Ok</label>\n      <input type=\"radio\" name=\"toilet\" id=\"toilet-3\" value=\"good\" />\n      <label for=\"toilet-3\" class=\"green\">Great</label>\n    </fieldset>\n  </div>\n\n  <div data-role=\"fieldcontain\">\n    <label><input type=\"checkbox\" name=\"staff-chk\">Staff</label>\n    <fieldset data-role=\"controlgroup\" data-type=\"horizontal\" class=\"trafficlight\">\n      <input type=\"radio\" name=\"staff\" id=\"staff-1\" value=\"bad\" />\n      <label for=\"staff-1\" class=\"red\">Bad</label>\n      <input type=\"radio\" name=\"staff\" id=\"staff-2\" value=\"ok\" />\n      <label for=\"staff-2\" class=\"amber\">Ok</label>\n      <input type=\"radio\" name=\"staff\" id=\"staff-3\" value=\"good\" />\n      <label for=\"staff-3\" class=\"green\">Great</label>\n    </fieldset>\n  </div>\n\n  <a href=\"#\" data-role=\"button\" id=\"rate-save\">Save</a>\n\n</form>\n";});
-}});
-
-window.require.define({"types": function(exports, require, module) {
-  
-  module.exports = 'airport|amusement_park|art_gallery|bakery|bank|bar|beauty_salon|bicycle_store|book_store|bowling_alley|bus_station|cafe|campground|car_dealer|car_rental|car_repair|casino|cemetery|church|city_hall|clothing_store|convenience_store|courthouse|dentist|department_store|doctor|electronics_store|embassy|florist|food|furniture_store|gas_station|grocery_or_supermarket|gym|hair_care|hardware_store|hindu_temple|home_goods_store|hospital|jewelry_store|laundry|library|liquor_store|local_government_office|lodging|meal_delivery|meal_takeaway|mosque|movie_rental|movie_theater|museum|night_club|parking|pet_store|pharmacy|physiotherapist|place_of_worship|post_office|restaurant|school|shoe_store|shopping_mall|spa|stadium|subway_station|synagogue|taxi_stand|train_station|university|zoo';
-  
 }});
 

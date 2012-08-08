@@ -1,4 +1,4 @@
-Data = require 'data'
+Data = require 'lib/data'
 Render = require 'templates/rate'
 
 class Rate
