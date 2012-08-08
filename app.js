@@ -5,6 +5,18 @@ var application_root = __dirname,
   fs = require('fs'),
   request = require('request');
 
+function toNum(str) {
+  if (str === null) {
+    return null
+  } else if (str == 'good' || str == ['good']) {
+    return 1;
+  } else if (str == 'ok' || str == ['ok']) {
+    return 0.5;
+  } else {
+    return 0;
+  }
+}
+
 var app = express(),
 
 // Hackish, but it's nearly midnight...
@@ -59,8 +71,59 @@ app.get('/api/place/:ref', function(req, res) {
   res.send(JSON.stringify(data));
 });
 
+app.get('/api/rate/:data', function(req, res) {
+  data = JSON.parse(req.params.data);
+  console.log(typeof data.access);
+  if (!data.access) data.access = null;
+  if (!data.parking) data.parking = null;
+  if (!data.staff) data.staff = null;
+  if (!data.toilet) data.toilet = null;
+
+  var existing = store.get('places', {name: data.place.name}, function(existing) {
+    /*name: data.place.name,
+    lat: {
+      $gt: data.place.lat - 0.002,
+      $lt: data.place.lat + 0.002
+    },
+    lng: {
+      $gt: data.place.lng - 0.002,
+      $lt: data.place.lng + 0.002
+    }});*/
+
+  console.log(existing);
+
+  data.access = toNum(data.access);
+  data.parking = toNum(data.parking);
+  data.staff = toNum(data.staff);
+  data.toilets = toNum(data.toilets);
+
+  if (existing === undefined) {
+    if (data.access === null) data.access = 0.5;
+    if (data.parking === null) data.parking = 0.5;
+    if (data.staff === null) data.staff = 0.5;
+    if (data.toilets === null) data.toilets = 0.5;
+    existing = {
+      lat: data.place.lat,
+      lng: data.place.lng,
+      name: data.place.name,
+      access: data.access,
+      'access-count': 1,
+      parking: data.parking,
+      'parking-count': 1,
+      staff: data.staff,
+      'staff-count': 1,
+      toilets: data.toilets,
+      'toilets-count': 1
+    };
+    store.set('places', existing);
+  }
+
+  res.send('{"success":true}');
+  });
+});
+
 app.get('/api/*', function(req, res) {
-  res.status(404).send('404');
+  res.status(404).send("{'success':false}");
 });
 
 /*app.get('*', function(req, res){

@@ -37,6 +37,7 @@ class Application
   rateGeo: (pos) ->
     Data.waitingForGeo = true
     $('#rate-loading-notice').removeClass 'hidden'
+    $.mobile.showPageLoadingMsg()
 
     #location = new google.maps.LatLng pos.coords.latitude, pos.coords.longitude
     #
@@ -58,6 +59,7 @@ class Application
         console.log 'Error!'
         @rateNoGeo()
       success: (data) ->
+        $.mobile.hidePageLoadingMsg()
         console.log data
         Data.nearbyAvailable = true
         Data.nearby = data.results
