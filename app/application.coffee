@@ -10,6 +10,14 @@ class Application
       #
     _this = @
 
+    $('#searchlist').listview 'option', 'filterCallback', (text, search) ->
+      if text.trim().toLowerCase() is 'search near:'
+        false
+      else if text.toLowerCase().indexOf(search) is -1
+        true
+      else
+        false
+
     $(window).on 'hashchange', ->
       switch window.location.hash
         when '#rate'

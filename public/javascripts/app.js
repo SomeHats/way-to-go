@@ -118,6 +118,15 @@ window.require.define({"application": function(exports, require, module) {
       var _this;
       $('[href=#]').on('click', function() {});
       _this = this;
+      $('#searchlist').listview('option', 'filterCallback', function(text, search) {
+        if (text.trim().toLowerCase() === 'search near:') {
+          return false;
+        } else if (text.toLowerCase().indexOf(search) === -1) {
+          return true;
+        } else {
+          return false;
+        }
+      });
       $(window).on('hashchange', function() {
         switch (window.location.hash) {
           case '#rate':

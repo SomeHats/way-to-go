@@ -26,9 +26,86 @@
       <h1>Way To Go</h1>
     </div>
     <div data-role="content">
-      <ul data-role="listview" data-filter="true">
+      <ul data-role="listview" data-filter="true" id="searchlist">
+        <li>
+          <div data-role="fieldcontain">
+            <label for="location">Search near:</label>
+            <input type="text" name="location" id="location" value="">
+          </div>
+        </li>
         <li data-role="list-divider">Favourites</li>
-        <li>Airport</li><li>Amusement Park</li><li>Aquarium</li><li>Art Gallery</li><li>Atm</li><li>Bakery</li><li>Bank</li><li>Bar</li><li data-role="list-divider">All</li><li>Beauty Salon</li><li>Bicycle Store</li><li>Book Store</li><li>Bowling Alley</li><li>Bus Station</li><li>Cafe</li><li>Campground</li><li>Car Dealer</li><li>Car Rental</li><li>Car Repair</li><li>Car Wash</li><li>Casino</li><li>Cemetery</li><li>Church</li><li>City Hall</li><li>Clothing Store</li><li>Convenience Store</li><li>Courthouse</li><li>Dentist</li><li>Department Store</li><li>Doctor</li><li>Electrician</li><li>Electronics Store</li><li>Embassy</li><li>Establishment</li><li>Finance</li><li>Fire Station</li><li>Florist</li><li>Food</li><li>Funeral Home</li><li>Furniture Store</li><li>Gas Station</li><li>General Contractor</li><li>Grocery Or Supermarket</li><li>Gym</li><li>Hair Care</li><li>Hardware Store</li><li>Health</li><li>Hindu Temple</li><li>Home Goods Store</li><li>Hospital</li><li>Insurance Agency</li><li>Jewelry Store</li><li>Laundry</li><li>Lawyer</li><li>Library</li><li>Liquor Store</li><li>Local Government Office</li><li>Locksmith</li><li>Lodging</li><li>Meal Delivery</li><li>Meal Takeaway</li><li>Mosque</li><li>Movie Rental</li><li>Movie Theater</li><li>Moving Company</li><li>Museum</li><li>Night Club</li><li>Painter</li><li>Park</li><li>Parking</li><li>Pet Store</li><li>Pharmacy</li><li>Physiotherapist</li><li>Place Of Worship</li><li>Plumber</li><li>Police</li><li>Post Office</li><li>Real Estate Agency</li><li>Restaurant</li><li>Roofing Contractor</li><li>Rv Park</li><li>School</li><li>Shoe Store</li><li>Shopping Mall</li><li>Spa</li><li>Stadium</li><li>Storage</li><li>Store</li><li>Subway Station</li><li>Synagogue</li><li>Taxi Stand</li><li>Train Station</li><li>Travel Agency</li><li>University</li><li>Veterinary Care</li><li>Zoo</li>
+        <li><a href="#search" data-term="toilet">Toilets</a></li>
+        <li><a href="#search" data-term="cafe">Cafe</a></li>
+        <li><a href="#search" data-term="department_store">Department Store</a></li>
+        <li><a href="#search" data-term="doctor">Doctor</a></li>
+        <li><a href="#search" data-term="food">Food</a></li>
+        <li><a href="#search" data-term="grocery_or_supermarket">Grocery or supermarket</a></li>
+        <li><a href="#search" data-term="hospital">Hospital</a></li>
+        <li><a href="#search" data-term="parking">Parking</a></li>
+        <li><a href="#search" data-term="restaurant">Restaurant</a></li>
+        <li data-role="list-divider">All</li>
+        <li><a href="#search" data-term="airport">Airport</a></li>
+        <li><a href="#search" data-term="amusement_park">Amusement Park</a></li>
+        <li><a href="#search" data-term="art_gallery">Art Gallery</a></li>
+        <li><a href="#search" data-term="bakery">Bakery</a></li>
+        <li><a href="#search" data-term="bank">Bank</a></li>
+        <li><a href="#search" data-term="bar">Bar</a></li>
+        <li><a href="#search" data-term="beauty_salon">Beauty Salon</a></li>
+        <li><a href="#search" data-term="bicycle_store">Bicycle Store</a></li>
+        <li><a href="#search" data-term="book_store">Book Store</a></li>
+        <li><a href="#search" data-term="bowling_alley">Bowling Alley</a></li>
+        <li><a href="#search" data-term="bus_station">Bus Station</a></li>
+        <li><a href="#search" data-term="campground">Campground</a></li>
+        <li><a href="#search" data-term="car_dealer">Car Dealer</a></li>
+        <li><a href="#search" data-term="car_rental">Car Rental</a></li>
+        <li><a href="#search" data-term="car_repair">Car Repair</a></li>
+        <li><a href="#search" data-term="casino">Casino</a></li>
+        <li><a href="#search" data-term="cemetery">Cemetery</a></li>
+        <li><a href="#search" data-term="church">Church</a></li>
+        <li><a href="#search" data-term="city_hall">City Hall</a></li>
+        <li><a href="#search" data-term="clothing_store">Clothing Store</a></li>
+        <li><a href="#search" data-term="convenience_store">Convenience Store</a></li>
+        <li><a href="#search" data-term="courthouse">Courthouse</a></li>
+        <li><a href="#search" data-term="dentist">Dentist</a></li>
+        <li><a href="#search" data-term="electronics_store">Electronics Store</a></li>
+        <li><a href="#search" data-term="embassy">Embassy</a></li>
+        <li><a href="#search" data-term="florist">Florist</a></li>
+        <li><a href="#search" data-term="furniture_store">Furniture Store</a></li>
+        <li><a href="#search" data-term="gas_station">Gas Station</a></li>
+        <li><a href="#search" data-term="gym">Gym</a></li>
+        <li><a href="#search" data-term="hair_care">Hair Care</a></li>
+        <li><a href="#search" data-term="hardware_store">Hardware Store</a></li>
+        <li><a href="#search" data-term="hindu_temple">Hindu Temple</a></li>
+        <li><a href="#search" data-term="home_goods_store">Home Goods Store</a></li>
+        <li><a href="#search" data-term="jewelry_store">Jewelry Store</a></li>
+        <li><a href="#search" data-term="laundry">Laundry</a></li>
+        <li><a href="#search" data-term="library">Library</a></li>
+        <li><a href="#search" data-term="liquor_store">Liquor Store</a></li>
+        <li><a href="#search" data-term="local_government_office">Local Government Office</a></li>
+        <li><a href="#search" data-term="lodging">Lodging</a></li>
+        <li><a href="#search" data-term="meal_delivery">Meal Delivery</a></li>
+        <li><a href="#search" data-term="meal_takeaway">Meal Takeaway</a></li>
+        <li><a href="#search" data-term="mosque">Mosque</a></li>
+        <li><a href="#search" data-term="movie_rental">Movie Rental</a></li>
+        <li><a href="#search" data-term="movie_theater">Movie Theater</a></li>
+        <li><a href="#search" data-term="museum">Museum</a></li>
+        <li><a href="#search" data-term="night_club">Night Club</a></li>
+        <li><a href="#search" data-term="pet_store">Pet Store</a></li>
+        <li><a href="#search" data-term="pharmacy">Pharmacy</a></li>
+        <li><a href="#search" data-term="physiotherapist">Physiotherapist</a></li>
+        <li><a href="#search" data-term="place_of_worship">Place of Worship</a></li>
+        <li><a href="#search" data-term="post_office">Post Office</a></li>
+        <li><a href="#search" data-term="school">School</a></li>
+        <li><a href="#search" data-term="shoe_store">Shoe Store</a></li>
+        <li><a href="#search" data-term="shopping_mall">Shopping Mall</a></li>
+        <li><a href="#search" data-term="spa">Spa</a></li>
+        <li><a href="#search" data-term="stadium">Stadium</a></li>
+        <li><a href="#search" data-term="subway_station">Subway Station</a></li>
+        <li><a href="#search" data-term="synagogue">Synagogue</a></li>
+        <li><a href="#search" data-term="taxi_stand">Taxi Stand</a></li>
+        <li><a href="#search" data-term="train_station">Train Station</a></li>
+        <li><a href="#search" data-term="university">University</a></li>
+        <li><a href="#search" data-term="zoo">Zoo</a></li>
       </ul>
     </div>
     <div data-role="footer" data-id="foot" data-position="fixed">
