@@ -24,6 +24,7 @@ class Rate
           name: Data.place.name
           lat: Data.place.geometry.location.lat
           lng: Data.place.geometry.location.lng
+          ref: Data.place.reference
 
       if data.wheelchair
         send.access = data.wheelchair

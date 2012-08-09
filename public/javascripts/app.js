@@ -161,6 +161,7 @@ window.require.define({"application": function(exports, require, module) {
       $('#rate-geo-notice').removeClass('hidden');
       $('#rate-nearby h2').text('Rate');
       if (this.geo) {
+        $.mobile.showPageLoadingMsg();
         return this.geo.getCurrentPosition(this.rateGeo, this.rateNoGeo);
       } else {
         console.log('Geo not allowed');
@@ -171,7 +172,6 @@ window.require.define({"application": function(exports, require, module) {
     Application.prototype.rateGeo = function(pos) {
       Data.waitingForGeo = true;
       $('#rate-loading-notice').removeClass('hidden');
-      $.mobile.showPageLoadingMsg();
       return $.ajax('/gm/maps/api/place/search/json', {
         data: {
           key: 'AIzaSyALj6zax-yPF5UIfk77oOH4thM3BeEesVw',
@@ -312,7 +312,8 @@ window.require.define({"rate": function(exports, require, module) {
           place: {
             name: Data.place.name,
             lat: Data.place.geometry.location.lat,
-            lng: Data.place.geometry.location.lng
+            lng: Data.place.geometry.location.lng,
+            ref: Data.place.reference
           }
         };
         if (data.wheelchair) {

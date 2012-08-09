@@ -102,7 +102,8 @@ app.get('/api/rate/:data', function(req, res) {
       existing = {
         lat: data.place.lat,
         lng: data.place.lng,
-        name: data.place.name
+        name: data.place.name,
+        ref: data.place.ref
       };
 
       forEachType(function(type) {
@@ -119,6 +120,7 @@ app.get('/api/rate/:data', function(req, res) {
 
     } else {
       console.log('Place ' + existing.name + ' already exists.');
+      existing.ref = data.place.ref
       forEachType(function(type) {
         if (data[type] !== null) {
           existing[type + '-count'] += 1;
