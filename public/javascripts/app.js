@@ -163,13 +163,14 @@ window.require.define({"application": function(exports, require, module) {
         }
       });
       $('#searchlist a').on('click', function() {
-        var $el, term;
+        var $el, location;
         $el = $(this);
-        term = $('#location').val();
-        if (term.trim() === '') {
+        location = $('#location').val();
+        console.log(location);
+        if (location.trim() === '') {
           return alert('Please enter a location');
         } else {
-          return Search.start($el.attr('data-term'), term);
+          return Search.start($el.attr('data-term'), location);
         }
       });
       $(window).on('hashchange', function() {
@@ -182,6 +183,8 @@ window.require.define({"application": function(exports, require, module) {
             }
             break;
           case '#map':
+          case '#list':
+          case '#info':
             if (Data.searchTerm === false) {
               return $.mobile.changePage('#home');
             }
@@ -331,7 +334,7 @@ window.require.define({"lib/geocode": function(exports, require, module) {
         address: addr
       }, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
-          return success(results.geometry.location);
+          return success(results[0].geometry.location);
         } else {
           console.log(status);
           return fail();
@@ -465,13 +468,15 @@ window.require.define({"rate": function(exports, require, module) {
 }});
 
 window.require.define({"search": function(exports, require, module) {
-  var Data, Geocode, Search, hslToHex, _this;
+  var Data, Geocode, Search, getColour, hslToHex, render, _this;
 
   hslToHex = require('lib/hslToHex');
 
   Data = require('lib/data');
 
   Geocode = require('lib/geocode');
+
+  render = require('templates/info');
 
   Search = (function() {
 
@@ -494,11 +499,10 @@ window.require.define({"search": function(exports, require, module) {
             $.mobile.changePage('#map');
             $.mobile.showPageLoadingMsg();
             $('#searchMap').height($(window).innerHeight() - ($('#map [data-role=header]').outerHeight() + $('#map [data-role=footer]').outerHeight() + 2));
-            console.log(Data.geolocAdd);
             if (Data.geolocAdd && near.trim().toLowerCase() === Data.geolocAdd.trim().toLowerCase()) {
               return _this.drawMap(Data.lastLatlng);
             } else {
-              return Geocode.getLatLong(this.near, _this.drawMap, function() {
+              return Geocode.getLatLong(near, _this.drawMap, function() {
                 return alert('Could not draw map :(');
               });
             }
@@ -510,7 +514,7 @@ window.require.define({"search": function(exports, require, module) {
     };
 
     Search.prototype.drawMap = function(center) {
-      var loc, map, pinColour, pinImage, place, _i, _len, _ref;
+      var loc, map, marker, pinImage, place, _i, _len, _ref;
       map = new google.maps.Map($('#searchMap')[0], {
         center: center,
         zoom: 14,
@@ -520,28 +524,321 @@ window.require.define({"search": function(exports, require, module) {
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         place = _ref[_i];
         loc = new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng);
-        if (place.general) {
-          pinColour = hslToHex(place.general / 3, 0.99, 0.7);
+        if (place.general !== void 0) {
+          place.generalColour = getColour(place.general);
+          place.general = Math.round(place.general * 10);
+          place.generalRender = true;
+          if (place.access !== void 0) {
+            place.accessColour = getColour(place.access);
+            place.access = Math.round(place.access * 10);
+            place.accessRender = true;
+          }
+          if (place.parking !== void 0) {
+            place.parkingColour = getColour(place.parking);
+            place.parking = Math.round(place.parking * 10);
+            place.parkingRender = true;
+          }
+          if (place.toilet !== void 0) {
+            place.toiletColour = getColour(place.toilet);
+            place.toilet = Math.round(place.toilet * 10);
+            place.toiletRender = true;
+          }
+          if (place.staff !== void 0) {
+            place.staffColour = getColour(place.staff);
+            place.staff = Math.round(place.staff * 10);
+            place.staffRender = true;
+          }
         } else {
-          pinColour = '7D93BA';
+          place.generalColour = '7D93BA';
         }
-        pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColour, new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
-        new google.maps.Marker({
+        pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + place.generalColour, new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        marker = new google.maps.Marker({
           position: loc,
           map: map,
           title: place.name,
           icon: pinImage
         });
+        _this.markerClick(place, marker);
       }
       return $.mobile.hidePageLoadingMsg();
+    };
+
+    Search.prototype.markerClick = function(place, marker) {
+      return google.maps.event.addListener(marker, 'click', function() {
+        $('#infoPanel').html(render(place)).trigger('create');
+        return $.mobile.changePage('#info');
+      });
     };
 
     return Search;
 
   })();
 
+  getColour = function(val) {
+    return hslToHex(val / 3, 0.99, 0.6);
+  };
+
   module.exports = _this = new Search;
   
+}});
+
+window.require.define({"templates/info": function(exports, require, module) {
+  module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+    helpers = helpers || Handlebars.helpers;
+    var buffer = "", stack1, stack2, foundHelper, tmp1, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
+
+  function program1(depth0,data) {
+    
+    var buffer = "", stack1;
+    buffer += "\n			<div class=\"trafficlight-show-major ui-li-aside\" style=\"background-color: #";
+    foundHelper = helpers.generalColour;
+    stack1 = foundHelper || depth0.generalColour;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "generalColour", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "; box-shadow: 0 0 8px #";
+    foundHelper = helpers.generalColour;
+    stack1 = foundHelper || depth0.generalColour;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "generalColour", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\">\n				";
+    foundHelper = helpers.general;
+    stack1 = foundHelper || depth0.general;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "general", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\n			</div>\n		";
+    return buffer;}
+
+  function program3(depth0,data) {
+    
+    
+    return "\n		<li>No accessibility information.</li>\n	";}
+
+  function program5(depth0,data) {
+    
+    var buffer = "", stack1, stack2;
+    buffer += "\n		";
+    foundHelper = helpers.accessRender;
+    stack1 = foundHelper || depth0.accessRender;
+    stack2 = helpers['if'];
+    tmp1 = self.program(6, program6, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    foundHelper = helpers.accessRender;
+    stack1 = foundHelper || depth0.accessRender;
+    stack2 = helpers.unless;
+    tmp1 = self.program(8, program8, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    foundHelper = helpers.parkingRender;
+    stack1 = foundHelper || depth0.parkingRender;
+    stack2 = helpers['if'];
+    tmp1 = self.program(10, program10, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    foundHelper = helpers.parkingRender;
+    stack1 = foundHelper || depth0.parkingRender;
+    stack2 = helpers.unless;
+    tmp1 = self.program(12, program12, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    foundHelper = helpers.toiletRender;
+    stack1 = foundHelper || depth0.toiletRender;
+    stack2 = helpers['if'];
+    tmp1 = self.program(14, program14, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    foundHelper = helpers.toiletRender;
+    stack1 = foundHelper || depth0.toiletRender;
+    stack2 = helpers.unless;
+    tmp1 = self.program(16, program16, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    foundHelper = helpers.staffRender;
+    stack1 = foundHelper || depth0.staffRender;
+    stack2 = helpers['if'];
+    tmp1 = self.program(18, program18, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    foundHelper = helpers.staffRender;
+    stack1 = foundHelper || depth0.staffRender;
+    stack2 = helpers.unless;
+    tmp1 = self.program(20, program20, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n	";
+    return buffer;}
+  function program6(depth0,data) {
+    
+    var buffer = "", stack1;
+    buffer += "\n			<li><h3>Wheelchair Access</h3>\n				<div class=\"trafficlight-show ui-li-aside\" style=\"background-color: #";
+    foundHelper = helpers.accessColour;
+    stack1 = foundHelper || depth0.accessColour;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "accessColour", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "; box-shadow: 0 0 8px #";
+    foundHelper = helpers.accessColour;
+    stack1 = foundHelper || depth0.accessColour;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "accessColour", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\">\n					";
+    foundHelper = helpers.access;
+    stack1 = foundHelper || depth0.access;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "access", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\n				</div>\n			</li>\n		";
+    return buffer;}
+
+  function program8(depth0,data) {
+    
+    
+    return "\n			<li>No wheelchair access information.</li>\n		";}
+
+  function program10(depth0,data) {
+    
+    var buffer = "", stack1;
+    buffer += "\n			<li><h3>Car Parking</h3>\n				<div class=\"trafficlight-show ui-li-aside\" style=\"background-color: #";
+    foundHelper = helpers.parkingColour;
+    stack1 = foundHelper || depth0.parkingColour;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "parkingColour", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "; box-shadow: 0 0 8px #";
+    foundHelper = helpers.parkingColour;
+    stack1 = foundHelper || depth0.parkingColour;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "parkingColour", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\">\n					";
+    foundHelper = helpers.parking;
+    stack1 = foundHelper || depth0.parking;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "parking", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\n				</div>\n			</li>\n		";
+    return buffer;}
+
+  function program12(depth0,data) {
+    
+    
+    return "\n			<li>No car parking space information.</li>\n		";}
+
+  function program14(depth0,data) {
+    
+    var buffer = "", stack1;
+    buffer += "\n			<li><h3>Toilet Facilities</h3>\n				<div class=\"trafficlight-show ui-li-aside\" style=\"background-color: #";
+    foundHelper = helpers.toiletColour;
+    stack1 = foundHelper || depth0.toiletColour;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "toiletColour", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "; box-shadow: 0 0 8px #";
+    foundHelper = helpers.toiletColour;
+    stack1 = foundHelper || depth0.toiletColour;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "toiletColour", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\">\n					";
+    foundHelper = helpers.toilet;
+    stack1 = foundHelper || depth0.toilet;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "toilet", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\n				</div>\n			</li>\n		";
+    return buffer;}
+
+  function program16(depth0,data) {
+    
+    
+    return "\n			<li>No toilet facility information.</li>\n		";}
+
+  function program18(depth0,data) {
+    
+    var buffer = "", stack1;
+    buffer += "\n			<li><h3>Staff Friendliness</h3>\n				<div class=\"trafficlight-show ui-li-aside\" style=\"background-color: #";
+    foundHelper = helpers.staffColour;
+    stack1 = foundHelper || depth0.staffColour;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "staffColour", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "; box-shadow: 0 0 8px #";
+    foundHelper = helpers.staffColour;
+    stack1 = foundHelper || depth0.staffColour;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "staffColour", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\">\n					";
+    foundHelper = helpers.staff;
+    stack1 = foundHelper || depth0.staff;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "staff", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\n				</div>\n			</li>\n		";
+    return buffer;}
+
+  function program20(depth0,data) {
+    
+    
+    return "\n			<li>No staff friendliness information.</li>\n		";}
+
+    buffer += "<ul data-role=\"listview\">\n	<li>\n		<h2>";
+    foundHelper = helpers.name;
+    stack1 = foundHelper || depth0.name;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "name", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "</h2>\n		";
+    foundHelper = helpers.generalRender;
+    stack1 = foundHelper || depth0.generalRender;
+    stack2 = helpers['if'];
+    tmp1 = self.program(1, program1, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n	</li>\n	";
+    foundHelper = helpers.generalRender;
+    stack1 = foundHelper || depth0.generalRender;
+    stack2 = helpers.unless;
+    tmp1 = self.program(3, program3, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n	";
+    foundHelper = helpers.generalRender;
+    stack1 = foundHelper || depth0.generalRender;
+    stack2 = helpers['if'];
+    tmp1 = self.program(5, program5, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n</ul>";
+    return buffer;});
 }});
 
 window.require.define({"templates/rate-nearby": function(exports, require, module) {

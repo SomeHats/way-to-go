@@ -1,6 +1,7 @@
 hslToHex = require 'lib/hslToHex'
 Data = require 'lib/data'
 Geocode = require 'lib/geocode'
+render = require 'templates/info'
 
 class Search
 	start: (term, near) ->
@@ -21,11 +22,11 @@ class Search
 					$.mobile.showPageLoadingMsg()
 
 					$('#searchMap').height $(window).innerHeight() - ($('#map [data-role=header]').outerHeight() + $('#map [data-role=footer]').outerHeight() + 2)
-					console.log Data.geolocAdd
+
 					if Data.geolocAdd and near.trim().toLowerCase() is Data.geolocAdd.trim().toLowerCase()
 						_this.drawMap Data.lastLatlng
 					else
-						Geocode.getLatLong @near, _this.drawMap, ->
+						Geocode.getLatLong near, _this.drawMap, ->
 							alert 'Could not draw map :('
 
 				else
@@ -40,23 +41,55 @@ class Search
 		for place in _this.data.results
 			loc = new google.maps.LatLng place.geometry.location.lat, place.geometry.location.lng
 
-			if place.general
-				pinColour = hslToHex place.general / 3, 0.99, 0.7
+			if place.general isnt undefined
+				place.generalColour = getColour place.general
+				place.general = Math.round place.general * 10
+				place.generalRender = on
+
+				if place.access isnt undefined
+					place.accessColour = getColour place.access
+					place.access = Math.round place.access * 10
+					place.accessRender = on
+
+				if place.parking isnt undefined
+					place.parkingColour = getColour place.parking
+					place.parking = Math.round place.parking * 10
+					place.parkingRender = on
+
+				if place.toilet isnt undefined
+					place.toiletColour = getColour place.toilet
+					place.toilet = Math.round place.toilet * 10
+					place.toiletRender = on
+
+				if place.staff isnt undefined
+					place.staffColour = getColour place.staff
+					place.staff = Math.round place.staff * 10
+					place.staffRender = on
+
 			else
-				pinColour = '7D93BA'
+				place.generalColour = '7D93BA'
 			
-			pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColour,
+			pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + place.generalColour,
         new google.maps.Size(21, 34),
         new google.maps.Point(0,0),
         new google.maps.Point(10, 34));
 
-			new google.maps.Marker
+			marker = new google.maps.Marker
 				position: loc
 				map: map
 				title: place.name
 				icon: pinImage
 
+			_this.markerClick place, marker
+
 		$.mobile.hidePageLoadingMsg()
-		
+
+	markerClick: (place, marker) ->
+		google.maps.event.addListener marker, 'click', ->
+			$('#infoPanel').html(render place).trigger 'create'
+			$.mobile.changePage '#info'
+
+getColour = (val) ->
+	hslToHex val / 3, 0.99, 0.6
 
 module.exports = _this = new Search

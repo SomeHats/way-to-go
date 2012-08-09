@@ -1,0 +1,55 @@
+<ul data-role="listview">
+	<li>
+		<h2>{{name}}</h2>
+		{{#if generalRender}}
+			<div class="trafficlight-show-major ui-li-aside" style="background-color: #{{generalColour}}; box-shadow: 0 0 8px #{{generalColour}}">
+				{{general}}
+			</div>
+		{{/if}}
+	</li>
+	{{#unless generalRender}}
+		<li>No accessibility information.</li>
+	{{/unless}}
+	{{#if generalRender}}
+		{{#if accessRender}}
+			<li><h3>Wheelchair Access</h3>
+				<div class="trafficlight-show ui-li-aside" style="background-color: #{{accessColour}}; box-shadow: 0 0 8px #{{accessColour}}">
+					{{access}}
+				</div>
+			</li>
+		{{/if}}
+		{{#unless accessRender}}
+			<li>No wheelchair access information.</li>
+		{{/unless}}
+		{{#if parkingRender}}
+			<li><h3>Car Parking</h3>
+				<div class="trafficlight-show ui-li-aside" style="background-color: #{{parkingColour}}; box-shadow: 0 0 8px #{{parkingColour}}">
+					{{parking}}
+				</div>
+			</li>
+		{{/if}}
+		{{#unless parkingRender}}
+			<li>No car parking space information.</li>
+		{{/unless}}
+		{{#if toiletRender}}
+			<li><h3>Toilet Facilities</h3>
+				<div class="trafficlight-show ui-li-aside" style="background-color: #{{toiletColour}}; box-shadow: 0 0 8px #{{toiletColour}}">
+					{{toilet}}
+				</div>
+			</li>
+		{{/if}}
+		{{#unless toiletRender}}
+			<li>No toilet facility information.</li>
+		{{/unless}}
+		{{#if staffRender}}
+			<li><h3>Staff Friendliness</h3>
+				<div class="trafficlight-show ui-li-aside" style="background-color: #{{staffColour}}; box-shadow: 0 0 8px #{{staffColour}}">
+					{{staff}}
+				</div>
+			</li>
+		{{/if}}
+		{{#unless staffRender}}
+			<li>No staff friendliness information.</li>
+		{{/unless}}
+	{{/if}}
+</ul>

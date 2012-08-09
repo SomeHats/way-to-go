@@ -73,11 +73,12 @@ class Application
 
     $('#searchlist a').on 'click', ->
       $el = $ @
-      term = $('#location').val()
-      if term.trim() is ''
+      location = $('#location').val()
+      console.log location
+      if location.trim() is ''
         alert 'Please enter a location'
       else
-        Search.start $el.attr('data-term'), term
+        Search.start $el.attr('data-term'), location
 
     $(window).on 'hashchange', ->
       switch window.location.hash
@@ -86,7 +87,7 @@ class Application
         when '#rate-nearby'
           if Data.nearbyAvailable is false
             $.mobile.changePage '#home'
-        when '#map'
+        when '#map', '#list', '#info'
           if Data.searchTerm is off
             $.mobile.changePage '#home'
 

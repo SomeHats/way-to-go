@@ -22,9 +22,9 @@ module.exports =
 				fail()
 	getLatLong: (addr, success, fail) ->
 		geocoder = new google.maps.Geocoder
-		geocoder.geocode address: addr, (results, status) ->
+		geocoder.geocode {address: addr}, (results, status) ->
 			if status is google.maps.GeocoderStatus.OK
-				success results.geometry.location
+				success results[0].geometry.location
 			else
 				console.log status
 				fail()

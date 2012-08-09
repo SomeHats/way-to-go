@@ -151,6 +151,39 @@ fieldset.trafficlight .ui-radio .green.ui-btn-active {
   padding: 0;
   margin: 0;
 }
+.ui-body-a.ui-li-static {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #edeff8));
+  background: -webkit-linear-gradient(top, #fff 0%, #edeff8 100%);
+  background: -moz-linear-gradient(top, #fff 0%, #edeff8 100%);
+  background: -o-linear-gradient(top, #fff 0%, #edeff8 100%);
+  background: -ms-linear-gradient(top, #fff 0%, #edeff8 100%);
+  background: linear-gradient(top, #fff 0%, #edeff8 100%);
+  border-bottom: none;
+}
+.ui-body-a.ui-li-static h2 {
+  text-decoration: underline;
+  font-size: 18px;
+}
+.trafficlight-show,
+.trafficlight-show-major {
+  width: 30px;
+  height: 30px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 2px solid #000;
+  margin: 0;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+.trafficlight-show-major {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin-top: -2px;
+  margin-right: 0;
+}
 .ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; *line-height: 0; }
 .ir br { display: none; }
 .hidden { display: none !important; visibility: hidden; }
