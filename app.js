@@ -59,7 +59,69 @@ app.get('/api', function(req, res) {
   res.send('Way to Go');
 });
 
-app.get('/api/place/:ref', function(req, res) {
+app.get('/api/search/:term/:near', function(req, res) {
+  console.log('Search request: ' + req.params.term + ' near ' + req.params.near);
+  if (req.params.term === 'toilet') {
+    console.log('Toilet request.');
+    // To do
+    res.send("{'success': false}");
+  } else {
+    console.log('Making request to google...');
+    var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyALj6zax-yPF5UIfk77oOH4thM3BeEesVw&sensor=true&query=' + encodeURI(req.params.term.replace('_', ' ') + ' near ' + req.params.near);
+
+    request(url, function(err, reqRes, body) {
+      if (err) {
+        console.log('Google request failed');
+        res.send("{'success': false}");
+      } else {
+        console.log('Google request done');
+        data = JSON.parse(body);
+        var toCheck = data.results.length,
+          checked = 0;
+        for (var i = 0; i < toCheck; i++) {
+          /*var query = {
+            name: data.results[i].name,
+            lat: {
+              $gt: data.results[i].geometry.location.lat - 0.002,
+              $lt: data.results[i].geometry.location.lng + 0.002
+            },
+            lng: {
+              $gt: data.results[i].geometry.location.lng - 0.002,
+              $lt: data.results[i].geometry.location.lng + 0.002
+            }
+          };*/
+          var query = {
+            name: data.results[i].name,
+            lat: data.results[i].geometry.location.lat,
+            lng: data.results[i].geometry.location.lng
+          }
+          store.get('places', query, function(place, i) {
+            if (place) {
+              console.log('match ' + place.name);
+              var gen = 0, genCount = 0;
+              forEachType(function(type) {
+                if (place[type + '-count'] && place[type + '-count'] !== 0) {
+                  gen += place[type];
+                  genCount += place[type + '-count'];
+                  data.results[i][type] = place[type] / place[type + '-count'];
+                }
+              });
+              data.results[i].general = gen / genCount;
+            }
+            checked++;
+            if(checked === toCheck) {
+              data.success = true;
+              res.send(data);
+            }
+
+          }, i);
+        }
+      }
+    });
+  }
+})
+
+/*app.get('/api/place/:ref', function(req, res) {
   console.log('Place info request.')
   var data = {},
     place = store.get('places', {ref: req.params.ref});
@@ -71,7 +133,7 @@ app.get('/api/place/:ref', function(req, res) {
   }
 
   res.send(JSON.stringify(data));
-});
+});*/
 
 app.get('/api/rate/:data', function(req, res) {
   console.log('Rate request...')
@@ -84,7 +146,7 @@ app.get('/api/rate/:data', function(req, res) {
     }
   });
 
-  var existing = store.get('places', {
+  store.get('places', {
     name: data.place.name,
     lat: {
       $gt: data.place.lat - 0.002,
@@ -127,6 +189,7 @@ app.get('/api/rate/:data', function(req, res) {
           existing[type] += data[type];
         }
       });
+      store.set('places', existing);
     }
 
     res.send('{"success":true}');

@@ -12252,6 +12252,26 @@ Handlebars.template = Handlebars.VM.template;
 ;
 ;
 
+$(document).bind('mobileinit', function() {
+	$.mobile.defaultPageTransition = 'none';
+	$.mobile.page.prototype.options.backBtnTheme    = "a";
+
+  // Page
+  $.mobile.page.prototype.options.headerTheme = "a";  // Page header only
+  $.mobile.page.prototype.options.contentTheme = "a";
+  $.mobile.page.prototype.options.footerTheme = "a";
+
+  // Listviews
+  $.mobile.listview.prototype.options.headerTheme = "a";  // Header for nested lists
+  $.mobile.listview.prototype.options.theme           = "a";  // List items / content
+  $.mobile.listview.prototype.options.dividerTheme    = "a";  // List divider
+
+  $.mobile.listview.prototype.options.splitTheme   = "a";
+  $.mobile.listview.prototype.options.countTheme   = "a";
+  $.mobile.listview.prototype.options.filterTheme = "a";
+
+});
+
 /*! jQuery Mobile v1.1.1 1981b3f5ec22675ae47df8f0bdf9622e7780e90e jquerymobile.com | jquery.org/license */
 (function(l,t,k){typeof define==="function"&&define.amd?define(["jquery"],function(E){k(E,l,t);return E.mobile}):k(l.jQuery,l,t)})(this,document,function(l,t,k,E){(function(a,c,b,d){function e(a){for(;a&&typeof a.originalEvent!=="undefined";)a=a.originalEvent;return a}function g(b){for(var e={},g,d;b;){g=a.data(b,s);for(d in g)if(g[d])e[d]=e.hasVirtualBinding=true;b=b.parentNode}return e}function f(){y&&(clearTimeout(y),y=0);y=setTimeout(function(){G=y=0;A.length=0;F=false;H=true},a.vmouse.resetTimerDuration)}
 function j(b,g,c){var f,h;if(!(h=c&&c[b])){if(c=!c)a:{for(c=g.target;c;){if((h=a.data(c,s))&&(!b||h[b]))break a;c=c.parentNode}c=null}h=c}if(h){f=g;var c=f.type,j,F;f=a.Event(f);f.type=b;h=f.originalEvent;j=a.event.props;c.search(/^(mouse|click)/)>-1&&(j=w);if(h)for(F=j.length;F;)b=j[--F],f[b]=h[b];if(c.search(/mouse(down|up)|click/)>-1&&!f.which)f.which=1;if(c.search(/^touch/)!==-1&&(b=e(h),c=b.touches,b=b.changedTouches,c=c&&c.length?c[0]:b&&b.length?b[0]:d))for(h=0,len=x.length;h<len;h++)b=x[h],

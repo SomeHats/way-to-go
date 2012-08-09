@@ -100,7 +100,7 @@ window.require.define({"app": function(exports, require, module) {
 }});
 
 window.require.define({"application": function(exports, require, module) {
-  var Application, Data, Geocode, Rate, RateNearby, Types;
+  var Application, Data, Geocode, Rate, RateNearby, Search, Types;
 
   Data = require('lib/data');
 
@@ -112,6 +112,8 @@ window.require.define({"application": function(exports, require, module) {
 
   Geocode = require('lib/geocode');
 
+  Search = require('search');
+
   Application = (function() {
 
     function Application() {}
@@ -120,13 +122,54 @@ window.require.define({"application": function(exports, require, module) {
       var _this;
       $('[href=#]').on('click', function() {});
       _this = this;
-      $('#searchlist').listview('option', 'filterCallback', function(text, search) {
+      Data.hCont = false;
+      $('.h-cont').on('click', function() {
+        var theme;
+        if (Data.hCont === false) {
+          theme = 'c';
+          Data.hCont = true;
+        } else {
+          theme = 'a';
+          Data.hCont = false;
+        }
+        console.log(theme);
+        $.mobile.page.prototype.options.backBtnTheme = theme;
+        $.mobile.page.prototype.options.headerTheme = theme;
+        $.mobile.page.prototype.options.contentTheme = theme;
+        $.mobile.page.prototype.options.footerTheme = theme;
+        $.mobile.listview.prototype.options.headerTheme = theme;
+        $.mobile.listview.prototype.options.theme = theme;
+        $.mobile.listview.prototype.options.dividerTheme = theme;
+        $.mobile.listview.prototype.options.splitTheme = theme;
+        $.mobile.listview.prototype.options.countTheme = theme;
+        $.mobile.listview.prototype.options.filterTheme = theme;
+        $.mobile.activePage.find('.ui-btn').not('.ui-li-divider').removeClass('ui-btn-up-a ui-btn-up-b ui-btn-up-c ui-btn-up-d ui-btn-up-e ui-btn-hover-a ui-btn-hover-b ui-btn-hover-c ui-btn-hover-d ui-btn-hover-e').addClass('ui-btn-up-' + theme).attr('data-theme', theme);
+        $.mobile.activePage.find('.ui-li-divider').each(function(index, obj) {
+          if ($(this).parent().attr('data-divider-theme') === void 0) {
+            return $(this).removeClass('ui-bar-a ui-bar-b ui-bar-c ui-bar-d ui-bar-e').addClass('ui-bar-' + theme).attr('data-theme', theme);
+          }
+        });
+        $.mobile.activePage.find('.ui-btn').removeClass('ui-btn-up-a ui-btn-up-b ui-btn-up-c ui-btn-up-d ui-btn-up-e ui-btn-hover-a ui-btn-hover-b ui-btn-hover-c ui-btn-hover-d ui-btn-hover-e').addClass('ui-btn-up-' + theme).attr('data-theme', theme);
+        $.mobile.activePage.find('.ui-header, .ui-footer').removeClass('ui-bar-a ui-bar-b ui-bar-c ui-bar-d ui-bar-e').addClass('ui-bar-' + theme).attr('data-theme', theme);
+        return $.mobile.activePage.removeClass('ui-body-a ui-body-b ui-body-c ui-body-d ui-body-e').addClass('ui-body-' + theme).attr('data-theme', theme);
+      });
+      $('#searchlist:visible').listview('option', 'filterCallback', function(text, search) {
         if (text.trim().toLowerCase() === 'search near:') {
           return false;
         } else if (text.toLowerCase().indexOf(search) === -1) {
           return true;
         } else {
           return false;
+        }
+      });
+      $('#searchlist a').on('click', function() {
+        var $el, term;
+        $el = $(this);
+        term = $('#location').val();
+        if (term.trim() === '') {
+          return alert('Please enter a location');
+        } else {
+          return Search.start($el.attr('data-term'), term);
         }
       });
       $(window).on('hashchange', function() {
@@ -137,6 +180,11 @@ window.require.define({"application": function(exports, require, module) {
             if (Data.nearbyAvailable === false) {
               return $.mobile.changePage('#home');
             }
+            break;
+          case '#map':
+            if (Data.searchTerm === false) {
+              return $.mobile.changePage('#home');
+            }
         }
       });
       $(window).trigger('hashchange');
@@ -145,14 +193,16 @@ window.require.define({"application": function(exports, require, module) {
       } else {
         this.geo = false;
       }
-      return Geocode(this.geo, function(addr) {
+      return Geocode.getAddr(this.geo, function(addr) {
         var $loc;
         $loc = $('#location');
         if ($loc.val() === '') {
-          return $loc.val(addr);
+          $loc.val(addr);
+          return Data.geolocAdd = addr;
         }
       }, function() {
-        return console.log('fail');
+        console.log('fail');
+        return Data.geolocAdd = '';
       });
     };
 
@@ -221,6 +271,8 @@ window.require.define({"application": function(exports, require, module) {
 
   Data.nearbyAvailable = false;
 
+  Data.searchTerm = false;
+
   module.exports = new Application;
   
 }});
@@ -233,10 +285,6 @@ window.require.define({"initialize": function(exports, require, module) {
   $(document).on('ready', function() {
     return App.init();
   });
-
-  $(document).bind('mobileinit', function() {
-    return $.mobile.defaultPageTransition = 'none';
-  });
   
 }});
 
@@ -247,30 +295,90 @@ window.require.define({"lib/data": function(exports, require, module) {
 }});
 
 window.require.define({"lib/geocode": function(exports, require, module) {
-  
-  module.exports = function(geo, success, fail) {
-    if (geo === false) {
-      return fail();
-    } else {
-      return geo.getCurrentPosition(function(pos) {
-        var geocoder, latlng;
-        latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        geocoder = new google.maps.Geocoder;
-        return geocoder.geocode({
-          latLng: latlng
-        }, function(results, status) {
-          if (status === google.maps.GeocoderStatus.OK) {
-            return success(results[0].formatted_address);
-          } else {
-            console.log(status);
-            return fail();
-          }
-        });
-      }, function() {
+  var Data;
+
+  Data = require('lib/data');
+
+  module.exports = {
+    getAddr: function(geo, success, fail) {
+      if (geo === false) {
         return fail();
+      } else {
+        return geo.getCurrentPosition(function(pos) {
+          var geocoder, latlng;
+          latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+          geocoder = new google.maps.Geocoder;
+          Data.lastLatlng = latlng;
+          return geocoder.geocode({
+            latLng: latlng
+          }, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+              return success(results[0].formatted_address);
+            } else {
+              console.log(status);
+              return fail();
+            }
+          });
+        }, function() {
+          return fail();
+        });
+      }
+    },
+    getLatLong: function(addr, success, fail) {
+      var geocoder;
+      geocoder = new google.maps.Geocoder;
+      return geocoder.geocode({
+        address: addr
+      }, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          return success(results.geometry.location);
+        } else {
+          console.log(status);
+          return fail();
+        }
       });
     }
   };
+  
+}});
+
+window.require.define({"lib/hslToHex": function(exports, require, module) {
+  var hslToRgb;
+
+  module.exports = hslToRgb = function(h, s, l) {
+    var b, decColor, g, hue2rgb, p, q, r;
+    if (s === 0) {
+      r = b = g = l;
+    } else {
+      hue2rgb = function(p, q, t) {
+        if (t < 0) {
+          t += 1;
+        }
+        if (t > 1) {
+          t -= 1;
+        }
+        if (t < 1 / 6) {
+          return p + (q - p) * 6 * t;
+        }
+        if (t < 1 / 2) {
+          return q;
+        }
+        if (t < 2 / 3) {
+          return p + (q - p) * (2 / 3 - t) * 6;
+        }
+        return p;
+      };
+      q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1 / 3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1 / 3);
+    }
+    decColor = Math.round(b * 255) + 256 * Math.round(g * 255) + 65536 * Math.round(r * 255);
+    return decColor.toString(16);
+  };
+
+  window.hsl = hslToRgb;
   
 }});
 
@@ -353,6 +461,86 @@ window.require.define({"rate": function(exports, require, module) {
   })();
 
   module.exports = new Rate;
+  
+}});
+
+window.require.define({"search": function(exports, require, module) {
+  var Data, Geocode, Search, hslToHex, _this;
+
+  hslToHex = require('lib/hslToHex');
+
+  Data = require('lib/data');
+
+  Geocode = require('lib/geocode');
+
+  Search = (function() {
+
+    function Search() {}
+
+    Search.prototype.start = function(term, near) {
+      this.near = near;
+      this.term = term;
+      $.mobile.showPageLoadingMsg();
+      return $.ajax('/api/search/' + encodeURI(term) + '/' + encodeURI(near), {
+        dataType: 'json',
+        error: function() {
+          return alert('Something went wrong :(');
+        },
+        success: function(data) {
+          console.log(data);
+          if (data.success) {
+            _this.data = data;
+            Data.searchTerm = true;
+            $.mobile.changePage('#map');
+            $.mobile.showPageLoadingMsg();
+            $('#searchMap').height($(window).innerHeight() - ($('#map [data-role=header]').outerHeight() + $('#map [data-role=footer]').outerHeight() + 2));
+            console.log(Data.geolocAdd);
+            if (Data.geolocAdd && near.trim().toLowerCase() === Data.geolocAdd.trim().toLowerCase()) {
+              return _this.drawMap(Data.lastLatlng);
+            } else {
+              return Geocode.getLatLong(this.near, _this.drawMap, function() {
+                return alert('Could not draw map :(');
+              });
+            }
+          } else {
+            return alert("Something went wrong :(\n(toilets aren't supported yet)");
+          }
+        }
+      });
+    };
+
+    Search.prototype.drawMap = function(center) {
+      var loc, map, pinColour, pinImage, place, _i, _len, _ref;
+      map = new google.maps.Map($('#searchMap')[0], {
+        center: center,
+        zoom: 14,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      });
+      _ref = _this.data.results;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        place = _ref[_i];
+        loc = new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng);
+        if (place.general) {
+          pinColour = hslToHex(place.general / 3, 0.99, 0.7);
+        } else {
+          pinColour = '7D93BA';
+        }
+        pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColour, new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        new google.maps.Marker({
+          position: loc,
+          map: map,
+          title: place.name,
+          icon: pinImage
+        });
+      }
+      return $.mobile.hidePageLoadingMsg();
+    };
+
+    return Search;
+
+  })();
+
+  module.exports = _this = new Search;
   
 }});
 

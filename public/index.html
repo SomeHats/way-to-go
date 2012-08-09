@@ -20,11 +20,11 @@
     require('initialize');
   </script>
 </head>
-<body>
+<body data-theme="a">
   <noscript>
     <strong>You must have Javascript enabled to use Way To Go.</strong>
   </noscript>
-  <div data-role="page" id="home">
+  <div data-role="page" id="home" data-theme="a">
     <div data-role="header">
       <h1>Way To Go</h1>
     </div>
@@ -116,13 +116,34 @@
         <ul>
           <li><a href="#home" class="ui-btn-active ui-state-persist">Search</a></li>
           <li><a href="#rate">Rate</a></li>
-          <li><a href="#about">About</a></li>
+          <li><a href="#" class="h-cont" class="ui-state-persist">High Contrast</a></li>
         </ul>
       </div>
     </div>
   </div>
 
-  <div data-role="page" id="rate">
+  <div data-role="page" id="map" data-theme="a">
+    <div data-role="header">
+      <h2>Search</h2>
+    </div>
+    <div data-role="content" id="searchMap">
+
+    </div>
+    <div data-role="footer" data-id="fool" data-position="fixed">
+      <div data-role="navbar" data-theme="b">
+        <ul><li><a href="list">List View</a></li></ul>
+      </div>
+      <div data-role="navbar">
+        <ul>
+          <li><a href="#home" class="ui-btn-active ui-state-persist">Search</a></li>
+          <li><a href="#rate">Rate</a></li>
+          <li><a href="#" class="h-cont" class="ui-state-persist">High Contrast</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div data-role="page" id="rate" data-theme="a">
     <div data-role="header">
       <h2>Rate</h2>
     </div>
@@ -139,13 +160,13 @@
         <ul>
           <li><a href="#home">Search</a></li>
           <li><a href="#rate" class="ui-btn-active ui-state-persist">Rate</a></li>
-          <li><a href="#about">About</a></li>
+          <li><a href="#" class="h-cont" class="ui-state-persist">High Contrast</a></li>
         </ul>
       </div>
     </div>
   </div>
 
-  <div data-role="page" id="rate-nearby">
+  <div data-role="page" id="rate-nearby" data-theme="a">
     <div data-role="header">
       <h2>Rate - Nearby</h2>
     </div>
@@ -157,23 +178,7 @@
         <ul>
           <li><a href="#home">Search</a></li>
           <li><a href="#rate" class="ui-btn-active ui-state-persist">Rate</a></li>
-          <li><a href="#about">About</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-
-  <div data-role="page" id="about">
-    <div data-role="header">
-      <h2>About Way to Go</h2>
-    </div>
-    <div data-role="footer" data-id="fool" data-position="fixed">
-      <div data-role="navbar">
-        <ul>
-          <li><a href="#home">Search</a></li>
-          <li><a href="#rate">Rate</a></li>
-          <li><a href="#about" class="ui-btn-active ui-state-persist">About</a></li>
+          <li><a href="#" class="h-cont" class="ui-state-persist">High Contrast</a></li>
         </ul>
       </div>
     </div>
