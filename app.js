@@ -63,6 +63,16 @@ app.get('/api/search/:term/:near', function(req, res) {
   console.log('Search request: ' + req.params.term + ' near ' + req.params.near);
   if (req.params.term === 'toilet') {
     console.log('Toilet request.');
+
+    /*
+    * This section is super hacky. I'm running really low on time and
+    * need a solution fast. If this were ever taken further, this would
+    * certainly be rewritten. Sorry. 
+    */
+
+    var query = {
+      'toilet-count': 0
+    }
     
     res.send("{'success': false}");
   } else {
@@ -100,7 +110,7 @@ app.get('/api/search/:term/:near', function(req, res) {
               console.log('match ' + place.name);
               var gen = 0, genCount = 0;
               forEachType(function(type) {
-                if (place[type + '-count'] && place[type + '-count'] !== 0) {
+                if (place[type + '-count'] && place[type + '-count'] > 0) {
                   gen += place[type];
                   genCount += place[type + '-count'];
                   data.results[i][type] = place[type] / place[type + '-count'];
