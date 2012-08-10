@@ -118,7 +118,9 @@ app.get('/api/search/:term/:near', function(req, res) {
                   }
                 }
               });
-              data.results[i].general = gen / genCount;
+              if (results[i]) {
+                data.results[i].general = gen / genCount;
+              }
             }
             checked++;
             if(checked === toCheck) {
