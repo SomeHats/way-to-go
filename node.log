@@ -12,3 +12,543 @@ Results called
 Place Millais Lower School does not already exist
 Creating Millais Lower School
 Server started at localhost:3000
+Server started at localhost:3000
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place Kent & Sussex Blinds does not already exist
+Creating Kent & Sussex Blinds
+Generic Google Maps api request
+Server started at localhost:3000
+Generic Google Maps api request
+Rate request...
+Results called
+Place The King's Head does not already exist
+Creating The King's Head
+Generic Google Maps api request
+Rate request...
+Results called
+Place B R T Carpets Ltd does not already exist
+Creating B R T Carpets Ltd
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Server started at localhost:3000
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place Myhotel does not already exist
+Creating Myhotel
+Generic Google Maps api request
+Rate request...
+Results called
+Place Lighthouse Arts does not already exist
+Creating Lighthouse Arts
+Generic Google Maps api request
+Rate request...
+Results called
+Place Wagamama - Brighton does not already exist
+Creating Wagamama - Brighton
+Generic Google Maps api request
+Rate request...
+Results called
+Place Giraffe does not already exist
+Creating Giraffe
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place Oxfam Bookshop does not already exist
+Creating Oxfam Bookshop
+Generic Google Maps api request
+Rate request...
+Results called
+Place Brighton Farm Market does not already exist
+Creating Brighton Farm Market
+Generic Google Maps api request
+Rate request...
+Results called
+Place Infinity Foods Cooperative Ltd does not already exist
+Creating Infinity Foods Cooperative Ltd
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place Wagamama - Brighton already exists.
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place Brighton Pavilion does not already exist
+Creating Brighton Pavilion
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place Starbucks Coffee does not already exist
+Creating Starbucks Coffee
+Rate request...
+Results called
+Place Jubilee Library does not already exist
+Creating Jubilee Library
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place The Chilli Pickle does not already exist
+Creating The Chilli Pickle
+Generic Google Maps api request
+Rate request...
+Results called
+Place YO! Sushi - Brighton does not already exist
+Creating YO! Sushi - Brighton
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place Las Iguanas does not already exist
+Creating Las Iguanas
+Rate request...
+Results called
+Place Las Iguanas already exists.
+Generic Google Maps api request
+Rate request...
+Results called
+Place Tesco does not already exist
+Creating Tesco
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place Octagon Unitarian Chapel does not already exist
+Creating Octagon Unitarian Chapel
+Generic Google Maps api request
+Rate request...
+Results called
+Place Ali Tandoori does not already exist
+Creating Ali Tandoori
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place Seven Brides does not already exist
+Creating Seven Brides
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place PizzaExpress does not already exist
+Creating PizzaExpress
+Generic Google Maps api request
+Rate request...
+Results called
+Place Cuttlefish Hairdressing does not already exist
+Creating Cuttlefish Hairdressing
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place Kemp Town Chippy does not already exist
+Creating Kemp Town Chippy
+Generic Google Maps api request
+Rate request...
+Results called
+Place Millais Lower School does not already exist
+Creating Millais Lower School
+Generic Google Maps api request
+Unknown API request: /api/search/toilet/horsham
+Unknown API request: /api/search/cafe/horsham
+Unknown API request: /api/search/casino/horsham
+Unknown API request: /api/search/school/horsham
+Server started at localhost:3000
+Search request: food near 24 Sycamore Dr, Hailsham, East Sussex County BN27, UK
+Making request to google...
+Google request done
+Search request: toilet near 24 Sycamore Dr, Hailsham, East Sussex County BN27, UK
+Toilet request.
+Search request: cafe near 24 Sycamore Dr, Hailsham, East Sussex County BN27, UK
+Making request to google...
+Google request done
+Search request: cafe near Hailsham
+Making request to google...
+Google request done
+Search request: toilet near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Toilet request.
+Generic Google Maps api request
+Rate request...
+Results called
+Place Millais School does not already exist
+Creating Millais School
+Search request: school near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+match Millais School
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: school near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+match Millais School
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: school near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+match Millais School
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: school near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+match Millais School
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Generic Google Maps api request
+Search request: school near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+match Millais School
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: toilet near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Toilet request.
+Search request: grocery_or_supermarket near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+Search request: school near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+Search request: school near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place GO Church does not already exist
+Creating GO Church
+Search request: church near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+Search request: church near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+match GO Church
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Server started at localhost:3000
+Search request: food near 24 Sycamore Dr, Hailsham, East Sussex County BN27, UK
+Making request to google...
+Google request done
+Search request: toilet near 13 Lanercost Dr, Newcastle Upon Tyne, Newcastle upon Tyne, Tyne and Wear NE5 2DD, UK
+Toilet request.
+Search request: cafe near 13 Lanercost Dr, Newcastle Upon Tyne, Newcastle upon Tyne, Tyne and Wear NE5 2DD, UK
+Making request to google...
+Google request done
+Search request: grocery_or_supermarket near 40 Campbell Rd, Brighton, The City of Brighton and Hove BN1, UK
+Making request to google...
+Google request done
+Search request: toilet near 52 St Mary's Rd, Market Harborough, Leicestershire LE16 7DU, UK
+Toilet request.
+Search request: cafe near 52 St Mary's Rd, Market Harborough, Leicestershire LE16 7DU, UK
+Making request to google...
+Google request done
+Search request: taxi_stand near Corby
+Making request to google...
+Google request done
+Search request: toilet near 35 Old Steine, Brighton, East Sussex BN1 1NT, UK
+Toilet request.
+Search request: doctor near 35 Old Steine, Brighton, East Sussex BN1 1NT, UK
+Making request to google...
+Google request done
+Search request: restaurant near moor street, birmingham
+Making request to google...
+Google request done
+Search request: art_gallery near moor street, birmingham
+Making request to google...
+Google request done
+Search request: art_gallery near the strand, london
+Making request to google...
+Google request done
+Search request: grocery_or_supermarket near north laine, brighton
+Making request to google...
+Google request done
+Search request: grocery_or_supermarket near 28 kensington gardens, brighton
+Making request to google...
+Google request done
+Generic Google Maps api request
+Rate request...
+Results called
+Place The Forest School does not already exist
+Creating The Forest School
+Search request: school near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+match The Forest School
+match Millais School
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: cafe near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+Generic Google Maps api request
+Rate request...
+Results called
+Place GO Church already exists.
+Search request: church near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+match GO Church
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: church near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+match GO Church
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: toilet near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Toilet request.
+Search request: cafe near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place Horsham School of Dancing does not already exist
+Creating Horsham School of Dancing
+Generic Google Maps api request
+Rate request...
+Results called
+Place The Forest School already exists.
+Generic Google Maps api request
+Search request: cafe near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+Generic Google Maps api request
+Search request: toilet near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Toilet request.
+Search request: food near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+Generic Google Maps api request
+Rate request...
+Results called
+Place Foresters Arms does not already exist
+Creating Foresters Arms
+Search request: food near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+match Foresters Arms
+Generic Google Maps api request
+Search request: cafe near Horhsam
+Making request to google...
+Google request done
+Search request: cafe near Horsham
+Making request to google...
+Google request done
+Generic Google Maps api request
+Search request: doctor near Horsham
+Making request to google...
+Google request done
+Search request: cafe near 18 Marine Parade, Brighton, The City of Brighton and Hove BN2, UK
+Making request to google...
+Google request done
+Search request: cafe near 16 Marine Parade, Brighton and Hove, East Sussex BN2 1TL, UK
+Making request to google...
+Google request done
+Search request: toilet near 101 Stanford Ave, Brighton and Hove, Brighton a Hove BN1, UK
+Toilet request.
+Search request: cafe near 101 Stanford Ave, Brighton and Hove, Brighton a Hove BN1, UK
+Making request to google...
+Google request done
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Search request: toilet near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Toilet request.
+Search request: cafe near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+Generic Google Maps api request
+Generic Google Maps api request
+Search request: grocery_or_supermarket near 31 Little Comptons, Horsham, West Sussex RH13 5UW, UK
+Making request to google...
+Google request done
+Generic Google Maps api request
+Search request: toilet near 35 Old Steine, Brighton, East Sussex BN1 1NT, UK
+Toilet request.
+Search request: cafe near 35 Old Steine, Brighton, East Sussex BN1 1NT, UK
+Making request to google...
+Google request done
+Server started at localhost:3000
