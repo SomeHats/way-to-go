@@ -113,7 +113,9 @@ app.get('/api/search/:term/:near', function(req, res) {
                 if (place[type + '-count'] && place[type + '-count'] > 0) {
                   gen += place[type];
                   genCount += place[type + '-count'];
-                  data.results[i][type] = place[type] / place[type + '-count'];
+                  if (data.results[i]) {
+                    data.results[i][type] = place[type] / place[type + '-count'];
+                  }
                 }
               });
               data.results[i].general = gen / genCount;
