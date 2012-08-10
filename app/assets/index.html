@@ -33,7 +33,7 @@
         <li>
           <div data-role="fieldcontain">
             <label for="location">Search near:</label>
-            <input type="text" name="location" id="location" value="">
+            <input type="text" name="location" id="location" value="" placeholder="Geolocating...">
           </div>
         </li>
         <li data-role="list-divider">Favourites</li>
@@ -148,7 +148,9 @@
       <h2>Info</h2>
     </div>
     <div data-role="content" id="infoPanel">
-      
+      <ul data-role="listview">
+        <li>Loading...</li>
+      </ul>
     </div>
     <div data-role="footer" data-id="foot" data-position="fixed">
       <div data-role="navbar">

@@ -199,13 +199,15 @@ window.require.define({"application": function(exports, require, module) {
       return Geocode.getAddr(this.geo, function(addr) {
         var $loc;
         $loc = $('#location');
+        $loc.attr('placeholder', '');
         if ($loc.val() === '') {
           $loc.val(addr);
           return Data.geolocAdd = addr;
         }
       }, function() {
         console.log('fail');
-        return Data.geolocAdd = '';
+        Data.geolocAdd = '';
+        return $loc.attr('placeholder', '');
       });
     };
 
@@ -392,7 +394,7 @@ window.require.define({"lib/types": function(exports, require, module) {
 }});
 
 window.require.define({"rate": function(exports, require, module) {
-  var Data, Rate, Render;
+  var Data, Rate, Render, rate;
 
   Data = require('lib/data');
 
@@ -403,9 +405,14 @@ window.require.define({"rate": function(exports, require, module) {
     function Rate() {}
 
     Rate.prototype.start = function(e) {
-      var el, place;
+      var el;
       el = $(this);
-      place = Data.place = Data.nearby[el.attr('data-index')];
+      Data.place = Data.nearby[el.attr('data-index')];
+      console.log(rate);
+      return rate.rate(Data.place);
+    };
+
+    Rate.prototype.rate = function(place) {
       $('#rate-nearby h2').text('Rate - ' + place.name);
       $('#rate-nearby [data-role=content]').html(Render(place)).trigger('create');
       $('#rate-nearby input[type=checkbox]').on('change', function() {
@@ -463,12 +470,12 @@ window.require.define({"rate": function(exports, require, module) {
 
   })();
 
-  module.exports = new Rate;
+  module.exports = rate = new Rate;
   
 }});
 
 window.require.define({"search": function(exports, require, module) {
-  var Data, Geocode, Search, getColour, hslToHex, render, _this;
+  var Data, Geocode, Rate, Search, getColour, hslToHex, render, _this;
 
   hslToHex = require('lib/hslToHex');
 
@@ -477,6 +484,8 @@ window.require.define({"search": function(exports, require, module) {
   Geocode = require('lib/geocode');
 
   render = require('templates/info');
+
+  Rate = require('rate');
 
   Search = (function() {
 
@@ -551,7 +560,7 @@ window.require.define({"search": function(exports, require, module) {
         } else {
           place.generalColour = '7D93BA';
         }
-        pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + place.generalColour, new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+        pinImage = new google.maps.MarkerImage("https://chart.googleapis.com/chart?chst=d_map_spin&chld=0.75|0|" + place.generalColour + '|3', new google.maps.Size(39, 51), new google.maps.Point(0, 0), null);
         marker = new google.maps.Marker({
           position: loc,
           map: map,
@@ -565,8 +574,15 @@ window.require.define({"search": function(exports, require, module) {
 
     Search.prototype.markerClick = function(place, marker) {
       return google.maps.event.addListener(marker, 'click', function() {
-        $('#infoPanel').html(render(place)).trigger('create');
-        return $.mobile.changePage('#info');
+        $.mobile.changePage('#info');
+        $('#infoPanel ul').html(render(place));
+        $('#infoPanel ul').listview('refresh');
+        return $('#infoPanel a.rate').on('click', function() {
+          Data.nearbyAvailable = true;
+          $.mobile.changePage('#rate-nearby');
+          Data.place = place;
+          return Rate.rate(place);
+        });
       });
     };
 
@@ -802,7 +818,7 @@ window.require.define({"templates/info": function(exports, require, module) {
     
     return "\n			<li>No staff friendliness information.</li>\n		";}
 
-    buffer += "<ul data-role=\"listview\">\n	<li>\n		<h2>";
+    buffer += "	<li>\n		<h2>";
     foundHelper = helpers.name;
     stack1 = foundHelper || depth0.name;
     if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
@@ -837,7 +853,12 @@ window.require.define({"templates/info": function(exports, require, module) {
     tmp1.inverse = self.noop;
     stack1 = stack2.call(depth0, stack1, tmp1);
     if(stack1 || stack1 === 0) { buffer += stack1; }
-    buffer += "\n</ul>";
+    buffer += "\n	<li>\n		<a href=\"#\" class=\"rate\">Rate ";
+    foundHelper = helpers.name;
+    stack1 = foundHelper || depth0.name;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "name", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "</a>\n	</li>";
     return buffer;});
 }});
 

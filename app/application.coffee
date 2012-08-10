@@ -100,12 +100,14 @@ class Application
 
     Geocode.getAddr @geo, (addr) ->
       $loc = $ '#location'
+      $loc.attr 'placeholder', ''
       if $loc.val() is ''
         $loc.val addr
         Data.geolocAdd = addr
     , ->
       console.log 'fail'
       Data.geolocAdd = ''
+      $loc.attr 'placeholder', ''
 
   rate: ->
     $('#rate-nogeo-notice, #rate-loading-notice').addClass 'hidden'

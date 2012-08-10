@@ -2,6 +2,7 @@ hslToHex = require 'lib/hslToHex'
 Data = require 'lib/data'
 Geocode = require 'lib/geocode'
 render = require 'templates/info'
+Rate = require 'rate'
 
 class Search
 	start: (term, near) ->
@@ -69,10 +70,10 @@ class Search
 			else
 				place.generalColour = '7D93BA'
 			
-			pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + place.generalColour,
-        new google.maps.Size(21, 34),
+			pinImage = new google.maps.MarkerImage("https://chart.googleapis.com/chart?chst=d_map_spin&chld=0.75|0|" + place.generalColour + '|3',
+        new google.maps.Size(39, 51),
         new google.maps.Point(0,0),
-        new google.maps.Point(10, 34));
+        null);
 
 			marker = new google.maps.Marker
 				position: loc
@@ -86,8 +87,15 @@ class Search
 
 	markerClick: (place, marker) ->
 		google.maps.event.addListener marker, 'click', ->
-			$('#infoPanel').html(render place).trigger 'create'
 			$.mobile.changePage '#info'
+
+			$('#infoPanel ul').html render place
+			$('#infoPanel ul').listview 'refresh'
+			$('#infoPanel a.rate').on 'click', ->
+				Data.nearbyAvailable = on
+				$.mobile.changePage '#rate-nearby'
+				Data.place = place
+				Rate.rate place
 
 getColour = (val) ->
 	hslToHex val / 3, 0.99, 0.6

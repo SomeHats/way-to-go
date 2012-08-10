@@ -4,7 +4,11 @@ Render = require 'templates/rate'
 class Rate
   start: (e) ->
     el = $ @
-    place = Data.place = Data.nearby[el.attr 'data-index']
+    Data.place = Data.nearby[el.attr 'data-index']
+    console.log rate
+    rate.rate Data.place
+
+  rate: (place) ->
     $('#rate-nearby h2').text 'Rate - ' + place.name
     $('#rate-nearby [data-role=content]').html(Render place).trigger 'create'
 
@@ -50,4 +54,4 @@ class Rate
             console.log 'error'
 
 
-module.exports = new Rate
+module.exports = rate = new Rate
