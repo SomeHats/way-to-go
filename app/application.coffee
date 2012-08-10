@@ -107,7 +107,7 @@ class Application
     , ->
       console.log 'fail'
       Data.geolocAdd = ''
-      $loc.attr 'placeholder', ''
+      $('#location').attr 'placeholder', ''
 
   rate: ->
     $('#rate-nogeo-notice, #rate-loading-notice').addClass 'hidden'

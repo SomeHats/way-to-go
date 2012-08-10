@@ -207,7 +207,7 @@ window.require.define({"application": function(exports, require, module) {
       }, function() {
         console.log('fail');
         Data.geolocAdd = '';
-        return $loc.attr('placeholder', '');
+        return $('#location').attr('placeholder', '');
       });
     };
 
@@ -567,16 +567,41 @@ window.require.define({"search": function(exports, require, module) {
           title: place.name,
           icon: pinImage
         });
-        _this.markerClick(place, marker);
+        _this.markerClick(place, marker, map);
       }
       return $.mobile.hidePageLoadingMsg();
     };
 
-    Search.prototype.markerClick = function(place, marker) {
+    Search.prototype.markerClick = function(place, marker, map) {
       return google.maps.event.addListener(marker, 'click', function() {
+        var service;
         $.mobile.changePage('#info');
         $('#infoPanel ul').html(render(place));
         $('#infoPanel ul').listview('refresh');
+        service = new google.maps.places.PlacesService(map);
+        service.getDetails({
+          reference: place.reference
+        }, function(pd, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            console.log(pd);
+            place.extraInfo = true;
+            place.phone = pd.formatted_phone_number ? pd.formatted_phone_number : false;
+            place.openAvailable = pd.opening_hours ? true : false;
+            place.open = place.openAvailable ? pd.opening_hours.open_now : null;
+            if (pd.formatted_address) {
+              place.address = pd.formatted_address;
+              place.encodedAddress = encodeURI(pd.formatted_address);
+            } else {
+              place.address = false;
+            }
+            place.currentLocation = Data.lastLatlng ? Data.lastLatlng.Xa + ',' + Data.lastLatlng.Ya : false;
+            $('#infoPanel ul').html(render(place));
+            return $('#infoPanel ul').listview('refresh');
+          } else {
+            console.log(status);
+            return $('#infoPanel .loading').text('Could not load details.');
+          }
+        });
         return $('#infoPanel a.rate').on('click', function() {
           Data.nearbyAvailable = true;
           $.mobile.changePage('#rate-nearby');
@@ -818,6 +843,133 @@ window.require.define({"templates/info": function(exports, require, module) {
     
     return "\n			<li>No staff friendliness information.</li>\n		";}
 
+  function program22(depth0,data) {
+    
+    var buffer = "", stack1, stack2;
+    buffer += "\n		";
+    foundHelper = helpers.phone;
+    stack1 = foundHelper || depth0.phone;
+    stack2 = helpers['if'];
+    tmp1 = self.program(23, program23, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    foundHelper = helpers.address;
+    stack1 = foundHelper || depth0.address;
+    stack2 = helpers['if'];
+    tmp1 = self.program(25, program25, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    foundHelper = helpers.openAvailable;
+    stack1 = foundHelper || depth0.openAvailable;
+    stack2 = helpers['if'];
+    tmp1 = self.program(28, program28, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n	";
+    return buffer;}
+  function program23(depth0,data) {
+    
+    var buffer = "", stack1;
+    buffer += "\n			<li><a href=\"tel:";
+    foundHelper = helpers.phone;
+    stack1 = foundHelper || depth0.phone;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "phone", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\">Call: ";
+    foundHelper = helpers.phone;
+    stack1 = foundHelper || depth0.phone;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "phone", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "</a></li>\n		";
+    return buffer;}
+
+  function program25(depth0,data) {
+    
+    var buffer = "", stack1, stack2;
+    buffer += "\n			<li>";
+    foundHelper = helpers.address;
+    stack1 = foundHelper || depth0.address;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "address", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "</li>\n			";
+    foundHelper = helpers.currentLocation;
+    stack1 = foundHelper || depth0.currentLocation;
+    stack2 = helpers['if'];
+    tmp1 = self.program(26, program26, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    return buffer;}
+  function program26(depth0,data) {
+    
+    var buffer = "", stack1;
+    buffer += "\n				<li><a href=\"https://maps.google.co.uk/maps?saddr=";
+    foundHelper = helpers.currentLocation;
+    stack1 = foundHelper || depth0.currentLocation;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "currentLocation", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "&daddr=";
+    foundHelper = helpers.encodedAddress;
+    stack1 = foundHelper || depth0.encodedAddress;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "encodedAddress", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\">Get directions</a></li>\n			";
+    return buffer;}
+
+  function program28(depth0,data) {
+    
+    var buffer = "", stack1, stack2;
+    buffer += "\n			";
+    foundHelper = helpers.open;
+    stack1 = foundHelper || depth0.open;
+    stack2 = helpers['if'];
+    tmp1 = self.program(29, program29, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n			";
+    foundHelper = helpers.open;
+    stack1 = foundHelper || depth0.open;
+    stack2 = helpers.unless;
+    tmp1 = self.program(31, program31, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    return buffer;}
+  function program29(depth0,data) {
+    
+    
+    return "\n				<li>Open now</li>\n			";}
+
+  function program31(depth0,data) {
+    
+    
+    return "\n				<li>Closed now</li>\n			";}
+
+  function program33(depth0,data) {
+    
+    
+    return "\n		<li class=\"loading\">Loading...</li>\n	";}
+
     buffer += "	<li>\n		<h2>";
     foundHelper = helpers.name;
     stack1 = foundHelper || depth0.name;
@@ -858,7 +1010,26 @@ window.require.define({"templates/info": function(exports, require, module) {
     stack1 = foundHelper || depth0.name;
     if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
     else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "name", { hash: {} }); }
-    buffer += escapeExpression(stack1) + "</a>\n	</li>";
+    buffer += escapeExpression(stack1) + "</a>\n	</li>\n	<li role=\"list-divider\" data-theme=\"b\">Details</li>\n	";
+    foundHelper = helpers.extraInfo;
+    stack1 = foundHelper || depth0.extraInfo;
+    stack2 = helpers['if'];
+    tmp1 = self.program(22, program22, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n	";
+    foundHelper = helpers.extraInfo;
+    stack1 = foundHelper || depth0.extraInfo;
+    stack2 = helpers.unless;
+    tmp1 = self.program(33, program33, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
     return buffer;});
 }});
 

@@ -54,3 +54,26 @@
 	<li>
 		<a href="#" class="rate">Rate {{name}}</a>
 	</li>
+	<li role="list-divider" data-theme="b">Details</li>
+	{{#if extraInfo}}
+		{{#if phone}}
+			<li><a href="tel:{{phone}}">Call: {{phone}}</a></li>
+		{{/if}}
+		{{#if address}}
+			<li>{{address}}</li>
+			{{#if currentLocation}}
+				<li><a href="https://maps.google.co.uk/maps?saddr={{currentLocation}}&daddr={{encodedAddress}}">Get directions</a></li>
+			{{/if}}
+		{{/if}}
+		{{#if openAvailable}}
+			{{#if open}}
+				<li>Open now</li>
+			{{/if}}
+			{{#unless open}}
+				<li>Closed now</li>
+			{{/unless}}
+		{{/if}}
+	{{/if}}
+	{{#unless extraInfo}}
+		<li class="loading">Loading...</li>
+	{{/unless}}

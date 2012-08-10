@@ -81,16 +81,37 @@ class Search
 				title: place.name
 				icon: pinImage
 
-			_this.markerClick place, marker
+			_this.markerClick place, marker, map
 
 		$.mobile.hidePageLoadingMsg()
 
-	markerClick: (place, marker) ->
+	markerClick: (place, marker, map) ->
 		google.maps.event.addListener marker, 'click', ->
 			$.mobile.changePage '#info'
 
 			$('#infoPanel ul').html render place
 			$('#infoPanel ul').listview 'refresh'
+
+			service = new google.maps.places.PlacesService map
+			service.getDetails reference: place.reference, (pd, status) ->
+				if status is google.maps.places.PlacesServiceStatus.OK
+					console.log pd
+					place.extraInfo = true
+					place.phone = if pd.formatted_phone_number then pd.formatted_phone_number else false
+					place.openAvailable = if pd.opening_hours then true else false
+					place.open = if place.openAvailable then pd.opening_hours.open_now else null
+					if pd.formatted_address
+						place.address = pd.formatted_address
+						place.encodedAddress = encodeURI pd.formatted_address
+					else
+						place.address = false
+					place.currentLocation = if Data.lastLatlng then Data.lastLatlng.Xa + ',' + Data.lastLatlng.Ya else false
+					$('#infoPanel ul').html render place
+					$('#infoPanel ul').listview 'refresh'
+				else
+					console.log status
+					$('#infoPanel .loading').text 'Could not load details.'
+
 			$('#infoPanel a.rate').on 'click', ->
 				Data.nearbyAvailable = on
 				$.mobile.changePage '#rate-nearby'
