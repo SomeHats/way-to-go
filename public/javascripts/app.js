@@ -475,7 +475,7 @@ window.require.define({"rate": function(exports, require, module) {
 }});
 
 window.require.define({"search": function(exports, require, module) {
-  var Data, Geocode, Rate, Search, getColour, hslToHex, render, _this;
+  var Data, Geocode, Rate, Search, getColour, hslToHex, listRender, render, _this;
 
   hslToHex = require('lib/hslToHex');
 
@@ -484,6 +484,8 @@ window.require.define({"search": function(exports, require, module) {
   Geocode = require('lib/geocode');
 
   render = require('templates/info');
+
+  listRender = require('templates/list');
 
   Rate = require('rate');
 
@@ -509,9 +511,10 @@ window.require.define({"search": function(exports, require, module) {
             $.mobile.showPageLoadingMsg();
             $('#searchMap').height($(window).innerHeight() - ($('#map [data-role=header]').outerHeight() + $('#map [data-role=footer]').outerHeight() + 2));
             if (Data.geolocAdd && near.trim().toLowerCase() === Data.geolocAdd.trim().toLowerCase()) {
-              return _this.drawMap(Data.lastLatlng);
+              _this.draw(Data.lastLatlng);
+              return _this.drawList();
             } else {
-              return Geocode.getLatLong(near, _this.drawMap, function() {
+              return Geocode.getLatLong(near, _this.draw, function() {
                 return alert('Could not draw map :(');
               });
             }
@@ -522,8 +525,68 @@ window.require.define({"search": function(exports, require, module) {
       });
     };
 
-    Search.prototype.drawMap = function(center) {
-      var loc, map, marker, pinImage, place, _i, _len, _ref;
+    Search.prototype.drawList = function() {
+      var compare, listResults, result, _i, _len, _ref;
+      listResults = [];
+      compare = function(a, b) {
+        if (a.general) {
+          if (b.general) {
+            if (a.general < b.general) {
+              return -1;
+            } else if (a.general > b.general) {
+              return 1;
+            } else {
+              return 0;
+            }
+          } else {
+            return 1;
+          }
+        } else {
+          if (b.general) {
+            return -1;
+          } else {
+            return 0;
+          }
+        }
+      };
+      _ref = _this.data.results;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        result = _ref[_i];
+        if (result.general) {
+          result.generalColour = getColour(result.general);
+          result.general = Math.round(result.general * 10);
+        }
+        listResults.push(result);
+      }
+      console.log(listResults);
+      return $('#searchList ul').html(list(listResults)).listview('refresh');
+    };
+
+    Search.prototype.draw = function(center) {
+      var compare, el, loc, map, marker, pinImage, place, _i, _len, _ref;
+      compare = function(a, b) {
+        if (a.general) {
+          if (b.general) {
+            if (a.general < b.general) {
+              return 1;
+            } else if (a.general > b.general) {
+              return -1;
+            } else {
+              return 0;
+            }
+          } else {
+            return -1;
+          }
+        } else {
+          if (b.general) {
+            return 1;
+          } else {
+            return 0;
+          }
+        }
+      };
+      $('#searchList ul').html('');
+      _this.data.results = _this.data.results.sort(compare);
       map = new google.maps.Map($('#searchMap')[0], {
         center: center,
         zoom: 14,
@@ -567,13 +630,20 @@ window.require.define({"search": function(exports, require, module) {
           title: place.name,
           icon: pinImage
         });
-        _this.markerClick(place, marker, map);
+        el = $(listRender(place)).appendTo($('#searchList ul'));
+        _this.markerClick(place, marker, map, el);
       }
-      return $.mobile.hidePageLoadingMsg();
+      $.mobile.hidePageLoadingMsg();
+      try {
+        return $('#searchList ul').listview('refresh');
+      } catch (error) {
+        return console.log(error);
+      }
     };
 
-    Search.prototype.markerClick = function(place, marker, map) {
-      return google.maps.event.addListener(marker, 'click', function() {
+    Search.prototype.markerClick = function(place, marker, map, list) {
+      var clickFunc;
+      clickFunc = function() {
         var service;
         $.mobile.changePage('#info');
         $('#infoPanel ul').html(render(place));
@@ -582,6 +652,7 @@ window.require.define({"search": function(exports, require, module) {
         service.getDetails({
           reference: place.reference
         }, function(pd, status) {
+          var review, _i, _len, _ref;
           if (status === google.maps.places.PlacesServiceStatus.OK) {
             console.log(pd);
             place.extraInfo = true;
@@ -595,6 +666,18 @@ window.require.define({"search": function(exports, require, module) {
               place.address = false;
             }
             place.currentLocation = Data.lastLatlng ? Data.lastLatlng.Xa + ',' + Data.lastLatlng.Ya : false;
+            place.website = pd.website ? pd.website : false;
+            if (pd.reviews) {
+              place.reviews = [];
+              _ref = pd.reviews;
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                review = _ref[_i];
+                if (review.author_name === 'A Google User') {
+                  review.author_name = 'Anonymous';
+                }
+                place.reviews.push(review);
+              }
+            }
             $('#infoPanel ul').html(render(place));
             return $('#infoPanel ul').listview('refresh');
           } else {
@@ -602,13 +685,15 @@ window.require.define({"search": function(exports, require, module) {
             return $('#infoPanel .loading').text('Could not load details.');
           }
         });
-        return $('#infoPanel a.rate').on('click', function() {
+        return $('#infoPanel a.rate').live('click', function() {
           Data.nearbyAvailable = true;
           $.mobile.changePage('#rate-nearby');
           Data.place = place;
           return Rate.rate(place);
         });
-      });
+      };
+      google.maps.event.addListener(marker, 'click', clickFunc);
+      return list.on('click', clickFunc);
     };
 
     return Search;
@@ -876,6 +961,26 @@ window.require.define({"templates/info": function(exports, require, module) {
     tmp1.inverse = self.noop;
     stack1 = stack2.call(depth0, stack1, tmp1);
     if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    foundHelper = helpers.website;
+    stack1 = foundHelper || depth0.website;
+    stack2 = helpers['if'];
+    tmp1 = self.program(33, program33, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    foundHelper = helpers.reviews;
+    stack1 = foundHelper || depth0.reviews;
+    stack2 = helpers['if'];
+    tmp1 = self.program(35, program35, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
     buffer += "\n	";
     return buffer;}
   function program23(depth0,data) {
@@ -958,14 +1063,56 @@ window.require.define({"templates/info": function(exports, require, module) {
   function program29(depth0,data) {
     
     
-    return "\n				<li>Open now</li>\n			";}
+    return "\n				<li>Currently open</li>\n			";}
 
   function program31(depth0,data) {
     
     
-    return "\n				<li>Closed now</li>\n			";}
+    return "\n				<li>Not currently open</li>\n			";}
 
   function program33(depth0,data) {
+    
+    var buffer = "", stack1;
+    buffer += "\n			<li><a href=\"";
+    foundHelper = helpers.website;
+    stack1 = foundHelper || depth0.website;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "website", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\">Visit website</a></li>\n		";
+    return buffer;}
+
+  function program35(depth0,data) {
+    
+    var buffer = "", stack1, stack2;
+    buffer += "\n			<li data-role=\"list-divider\" data-theme=\"b\">\n				Reviews\n			</li>\n			";
+    foundHelper = helpers.reviews;
+    stack1 = foundHelper || depth0.reviews;
+    stack2 = helpers.each;
+    tmp1 = self.program(36, program36, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n		";
+    return buffer;}
+  function program36(depth0,data) {
+    
+    var buffer = "", stack1;
+    buffer += "\n				<li>\n					<h3>";
+    foundHelper = helpers.author_name;
+    stack1 = foundHelper || depth0.author_name;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "author_name", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "</h3>\n					<p>";
+    foundHelper = helpers.text;
+    stack1 = foundHelper || depth0.text;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "text", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "</p>\n				</li>\n			";
+    return buffer;}
+
+  function program38(depth0,data) {
     
     
     return "\n		<li class=\"loading\">Loading...</li>\n	";}
@@ -1024,12 +1171,57 @@ window.require.define({"templates/info": function(exports, require, module) {
     foundHelper = helpers.extraInfo;
     stack1 = foundHelper || depth0.extraInfo;
     stack2 = helpers.unless;
-    tmp1 = self.program(33, program33, data);
+    tmp1 = self.program(38, program38, data);
     tmp1.hash = {};
     tmp1.fn = tmp1;
     tmp1.inverse = self.noop;
     stack1 = stack2.call(depth0, stack1, tmp1);
     if(stack1 || stack1 === 0) { buffer += stack1; }
+    return buffer;});
+}});
+
+window.require.define({"templates/list": function(exports, require, module) {
+  module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+    helpers = helpers || Handlebars.helpers;
+    var buffer = "", stack1, stack2, foundHelper, tmp1, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
+
+  function program1(depth0,data) {
+    
+    var buffer = "", stack1;
+    buffer += "\n			<div class=\"trafficlight-show-cont ui-li-aside\"><div class=\"trafficlight-show-mini\" style=\"background-color: #";
+    foundHelper = helpers.generalColour;
+    stack1 = foundHelper || depth0.generalColour;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "generalColour", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "; box-shadow: 0 0 8px #";
+    foundHelper = helpers.generalColour;
+    stack1 = foundHelper || depth0.generalColour;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "generalColour", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\">\n				";
+    foundHelper = helpers.general;
+    stack1 = foundHelper || depth0.general;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "general", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "\n			</div></div>\n		";
+    return buffer;}
+
+    buffer += "<li>\n	<a href=\"#\">\n		<span>";
+    foundHelper = helpers.name;
+    stack1 = foundHelper || depth0.name;
+    if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+    else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "name", { hash: {} }); }
+    buffer += escapeExpression(stack1) + "</span>\n		";
+    foundHelper = helpers.generalRender;
+    stack1 = foundHelper || depth0.generalRender;
+    stack2 = helpers['if'];
+    tmp1 = self.program(1, program1, data);
+    tmp1.hash = {};
+    tmp1.fn = tmp1;
+    tmp1.inverse = self.noop;
+    stack1 = stack2.call(depth0, stack1, tmp1);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    buffer += "\n	</a>\n</li>";
     return buffer;});
 }});
 

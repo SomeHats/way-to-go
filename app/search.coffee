@@ -2,6 +2,7 @@ hslToHex = require 'lib/hslToHex'
 Data = require 'lib/data'
 Geocode = require 'lib/geocode'
 render = require 'templates/info'
+listRender = require 'templates/list'
 Rate = require 'rate'
 
 class Search
@@ -25,15 +26,66 @@ class Search
 					$('#searchMap').height $(window).innerHeight() - ($('#map [data-role=header]').outerHeight() + $('#map [data-role=footer]').outerHeight() + 2)
 
 					if Data.geolocAdd and near.trim().toLowerCase() is Data.geolocAdd.trim().toLowerCase()
-						_this.drawMap Data.lastLatlng
+						_this.draw Data.lastLatlng
+						_this.drawList()
 					else
-						Geocode.getLatLong near, _this.drawMap, ->
+						Geocode.getLatLong near, _this.draw, ->
 							alert 'Could not draw map :('
 
 				else
 					alert "Something went wrong :(\n(toilets aren't supported yet)"
 
-	drawMap: (center) ->
+	drawList: ->
+		listResults = []
+		compare = (a, b) ->
+			if a.general
+				if b.general
+					if a.general < b.general
+						return -1
+					else if a.general > b.general
+						return 1
+					else
+						return 0
+				else
+					return 1
+			else
+				if b.general
+					return -1
+				else
+					return 0
+
+		for result in _this.data.results
+			if result.general
+				result.generalColour = getColour result.general
+				result.general = Math.round result.general * 10
+			listResults.push result
+
+		console.log listResults
+
+		$('#searchList ul').html(list listResults).listview 'refresh'
+
+	draw: (center) ->
+		compare = (a, b) ->
+			if a.general
+				if b.general
+					if a.general < b.general
+						return 1
+					else if a.general > b.general
+						return -1
+					else
+						return 0
+				else
+					return -1
+			else
+				if b.general
+					return 1
+				else
+					return 0
+
+		$('#searchList ul').html ''
+
+		_this.data.results = _this.data.results.sort compare
+
 		map = new google.maps.Map $('#searchMap')[0],
 			center: center
 			zoom: 14
@@ -81,12 +133,20 @@ class Search
 				title: place.name
 				icon: pinImage
 
-			_this.markerClick place, marker, map
+			el = $(listRender place).appendTo $ '#searchList ul'
+
+			_this.markerClick place, marker, map, el
 
 		$.mobile.hidePageLoadingMsg()
 
-	markerClick: (place, marker, map) ->
-		google.maps.event.addListener marker, 'click', ->
+		# This is *SO* hacky, but I'm running :(
+		try
+			$('#searchList ul').listview 'refresh'
+		catch error
+			console.log error
+
+	markerClick: (place, marker, map, list) ->
+		clickFunc = ->
 			$.mobile.changePage '#info'
 
 			$('#infoPanel ul').html render place
@@ -106,17 +166,28 @@ class Search
 					else
 						place.address = false
 					place.currentLocation = if Data.lastLatlng then Data.lastLatlng.Xa + ',' + Data.lastLatlng.Ya else false
+					place.website = if pd.website then pd.website else false
+					if pd.reviews
+						place.reviews = []
+						for review in pd.reviews
+							if review.author_name is 'A Google User'
+								review.author_name = 'Anonymous'
+
+							place.reviews.push review
 					$('#infoPanel ul').html render place
 					$('#infoPanel ul').listview 'refresh'
 				else
 					console.log status
 					$('#infoPanel .loading').text 'Could not load details.'
 
-			$('#infoPanel a.rate').on 'click', ->
+			$('#infoPanel a.rate').live 'click', ->
 				Data.nearbyAvailable = on
 				$.mobile.changePage '#rate-nearby'
 				Data.place = place
 				Rate.rate place
+
+		google.maps.event.addListener marker, 'click', clickFunc
+		list.on 'click', clickFunc
 
 getColour = (val) ->
 	hslToHex val / 3, 0.99, 0.6

@@ -131,7 +131,30 @@
     </div>
     <div data-role="footer" data-id="fool" data-position="fixed">
       <div data-role="navbar" data-theme="b">
-        <ul><li><a href="list">List View</a></li></ul>
+        <ul><li><a href="#list">List View</a></li></ul>
+      </div>
+      <div data-role="navbar">
+        <ul>
+          <li><a href="#home" class="ui-btn-active ui-state-persist">Search</a></li>
+          <li><a href="#rate">Rate</a></li>
+          <li><a href="#" class="h-cont" class="ui-state-persist">High Contrast</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div data-role="page" id="list" data-theme="a">
+    <div data-role="header">
+      <h2>Search</h2>
+    </div>
+    <div data-role="content" id="searchList">
+      <ul data-role="listview">
+        <li>Loading...</li>
+      </ul>
+    </div>
+    <div data-role="footer" data-id="fool" data-position="fixed">
+      <div data-role="navbar" data-theme="b">
+        <ul><li><a href="#map">Map View</a></li></ul>
       </div>
       <div data-role="navbar">
         <ul>

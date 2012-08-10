@@ -67,11 +67,25 @@
 		{{/if}}
 		{{#if openAvailable}}
 			{{#if open}}
-				<li>Open now</li>
+				<li>Currently open</li>
 			{{/if}}
 			{{#unless open}}
-				<li>Closed now</li>
+				<li>Not currently open</li>
 			{{/unless}}
+		{{/if}}
+		{{#if website}}
+			<li><a href="{{website}}">Visit website</a></li>
+		{{/if}}
+		{{#if reviews}}
+			<li data-role="list-divider" data-theme="b">
+				Reviews
+			</li>
+			{{#each reviews}}
+				<li>
+					<h3>{{author_name}}</h3>
+					<p>{{text}}</p>
+				</li>
+			{{/each}}
 		{{/if}}
 	{{/if}}
 	{{#unless extraInfo}}

@@ -63,7 +63,7 @@ app.get('/api/search/:term/:near', function(req, res) {
   console.log('Search request: ' + req.params.term + ' near ' + req.params.near);
   if (req.params.term === 'toilet') {
     console.log('Toilet request.');
-    // To do
+    
     res.send("{'success': false}");
   } else {
     console.log('Making request to google...');
