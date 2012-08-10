@@ -552,3 +552,651 @@ Search request: cafe near 35 Old Steine, Brighton, East Sussex BN1 1NT, UK
 Making request to google...
 Google request done
 Server started at localhost:3000
+Search request: cafe near 4A Woodmansterne Ln, Wallington, Greater London SM6 0SU, UK
+Making request to google...
+Google request done
+Search request: restaurant near Brighton
+Making request to google...
+Google request done
+match Las Iguanas
+Rate request...
+Results called
+Place Las Iguanas already exists.
+Search request: restaurant near Brighton
+Making request to google...
+Google request done
+match Las Iguanas
+Rate request...
+Results called
+Place Las Iguanas already exists.
+Search request: restaurant near Brighton
+Making request to google...
+Google request done
+match Las Iguanas
+Search request: toilet near Brighton, The City of Brighton and Hove, UK
+Toilet request.
+Search request: school near 157-197 Buckingham Palace Rd, London, Greater London SW1W 9SP, UK
+Making request to google...
+Google request done
+Search request: food near Brighton
+Making request to google...
+Google request done
+match YO! Sushi - Brighton
+match Las Iguanas
+Search request: toilet near Finchley Rd, City of Westminster, NW8, UK
+Toilet request.
+Search request: cafe near Finchley Rd, City of Westminster, NW8, UK
+Making request to google...
+Google request done
+Rate request...
+Results called
+Place Fairfax does not already exist
+Creating Fairfax
+Search request: department_store near Finchley Rd, City of Westminster, NW8, UK
+Making request to google...
+Google request done
+Search request: hospital near Finchley Rd, City of Westminster, NW8, UK
+Making request to google...
+Google request done
+Rate request...
+Results called
+Place The Portman Clinic does not already exist
+Creating The Portman Clinic
+Generic Google Maps api request
+Generic Google Maps api request
+Server started at localhost:3000
+Search request: cafe near M1, Caddington, Central Bedfordshire LU1, UK
+Making request to google...
+Google request done
+Search request: toilet near Finchley Rd, City of Westminster, NW8, UK
+Toilet request.
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place St John's Wood Practice does not already exist
+Creating St John's Wood Practice
+Search request: doctor near Finchley Rd, City of Westminster, NW8, UK
+Making request to google...
+Google request done
+match St John's Wood Practice
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Generic Google Maps api request
+Search request: grocery_or_supermarket near Finchley Rd, City of Westminster, NW8, UK
+Making request to google...
+Google request done
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Generic Google Maps api request
+Search request: doctor near Finchley Rd, City of Westminster, NW8, UK
+Making request to google...
+Google request done
+match St John's Wood Practice
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Generic Google Maps api request
+Server started at localhost:3000
+Search request: toilet near 201 Surrenden Rd, Brighton, The City of Brighton and Hove BN1 6NN, UK
+Toilet request.
+Search request: cafe near Digbeth, Birmingham Coach Stn (Stop XE), Birmingham, West Midlands B5, UK
+Making request to google...
+Google request done
+Search request: cafe near 3 kensington Gardens, Brighton, The City of Brighton and Hove BN1 4AJ, UK
+Making request to google...
+Google request done
+match Starbucks Coffee
+Search request: food near 28 Benacre Dr, Birmingham, West Midlands B5, UK
+Making request to google...
+Google request done
+Rate request...
+Results called
+Place The Old Crown does not already exist
+Creating The Old Crown
+Search request: food near 28 Benacre Dr, Birmingham, West Midlands B5, UK
+Making request to google...
+Google request done
+match The Old Crown
+Search request: grocery_or_supermarket near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+Generic Google Maps api request
+Rate request...
+Results called
+Place Audio Affair does not already exist
+Creating Audio Affair
+Generic Google Maps api request
+Generic Google Maps api request
+Rate request...
+Results called
+Place Shutterbox Films does not already exist
+Creating Shutterbox Films
+Search request: toilet near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Toilet request.
+Search request: toilet near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Toilet request.
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+Rate request...
+Results called
+Place St Martin's Tea Lounge does not already exist
+Creating St Martin's Tea Lounge
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+Rate request...
+Results called
+Place The Coffee Room does not already exist
+Creating The Coffee Room
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+Generic Google Maps api request
+Rate request...
+Results called
+Place The Old Crown already exists.
+Search request: food near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Old Crown
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+Rate request...
+Results called
+Place Bay Leaf does not already exist
+Creating Bay Leaf
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: bar near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match Bay Leaf
+match The Old Crown
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: department_store near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: department_store near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+Search request: grocery_or_supermarket near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+Search request: food near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match Bay Leaf
+match The Old Crown
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: department_store near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: food near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match Bay Leaf
+match The Old Crown
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: department_store near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: food near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match Bay Leaf
+match The Old Crown
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: department_store near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+Rate request...
+Results called
+Place Cutter Grinders Birmingham Ltd does not already exist
+Creating Cutter Grinders Birmingham Ltd
+Search request: department_store near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match Cutter Grinders Birmingham Ltd
+Rate request...
+Results called
+Place Woolworths does not already exist
+Creating Woolworths
+Search request: department_store near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match Woolworths
+match Cutter Grinders Birmingham Ltd
+Rate request...
+Results called
+Place Debenhams does not already exist
+Creating Debenhams
+Search request: department_store near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match Woolworths
+match Cutter Grinders Birmingham Ltd
+match Debenhams
+Search request: department_store near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match Woolworths
+match Cutter Grinders Birmingham Ltd
+match Debenhams
+Rate request...
+Results called
+Place BrightHouse does not already exist
+Creating BrightHouse
+Search request: department_store near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match Woolworths
+match Cutter Grinders Birmingham Ltd
+match Debenhams
+match BrightHouse
+Rate request...
+Results called
+Place The White Company does not already exist
+Creating The White Company
+Search request: department_store near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match The White Company
+match Woolworths
+match Cutter Grinders Birmingham Ltd
+match Debenhams
+match BrightHouse
+Rate request...
+Results called
+Place T K Maxx does not already exist
+Creating T K Maxx
+Search request: cafe near 117 Gibb St, Birmingham, West Midlands B9 4AA, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match Bay Leaf
+match The Coffee Room
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:106:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:102:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Server started at localhost:3000
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'access' of undefined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:116:41)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:112:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
