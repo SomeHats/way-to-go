@@ -1200,3 +1200,431 @@ TypeError: Cannot set property 'access' of undefined
     at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
     at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
 Server started at localhost:3000
+Server started at localhost:3000
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'general' of undefined
+    at /home/ubuntu/way-to-go/app.js:121:39
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+    at MongoReply.parseBody (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/responses/mongo_reply.js:127:5)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:379:22)
+Server started at localhost:3000
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+TypeError: Cannot set property 'general' of undefined
+    at /home/ubuntu/way-to-go/app.js:121:39
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:15:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+    at MongoReply.parseBody (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/responses/mongo_reply.js:127:5)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:379:22)
+Server started at localhost:3000
+Server started at localhost:3000
+Search request: cafe near 117 Gibb St, Birmingham, West Midlands B9 4AA, UK
+Making request to google...
+Google request done
+match St Martin's Tea Lounge
+match Bay Leaf
+match The Coffee Room
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+ReferenceError: results is not defined
+    at /home/ubuntu/way-to-go/app.js:121:19
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:13:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+    at MongoReply.parseBody (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/responses/mongo_reply.js:127:5)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:379:22)
+Server started at localhost:3000
+Generic Google Maps api request
+Generic Google Maps api request
+Search request: grocery_or_supermarket near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+Server started at localhost:3000
+Search request: cafe near 117 Gibb St, Birmingham, West Midlands B9 4AA, UK
+Making request to google...
+Google request done
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+match St Martin's Tea Lounge
+match Bay Leaf
+match The Coffee Room
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+ReferenceError: results is not defined
+    at /home/ubuntu/way-to-go/app.js:122:19
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:13:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+    at MongoReply.parseBody (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/responses/mongo_reply.js:127:5)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:379:22)
+Server started at localhost:3000
+Search request: cafe near 117 Gibb St, Birmingham, West Midlands B9 4AA, UK
+Making request to google...
+Google request done
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+match St Martin's Tea Lounge
+match Bay Leaf
+match The Coffee Room
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+ReferenceError: results is not defined
+    at /home/ubuntu/way-to-go/app.js:122:19
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:13:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+    at MongoReply.parseBody (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/responses/mongo_reply.js:127:5)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:379:22)
+Server started at localhost:3000
+Search request: food near 117 Gibb St, Birmingham, West Midlands B9 4AA, UK
+Making request to google...
+Google request done
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+match Bay Leaf
+match St Martin's Tea Lounge
+match The Old Crown
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+ReferenceError: results is not defined
+    at /home/ubuntu/way-to-go/app.js:122:19
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:13:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+    at MongoReply.parseBody (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/responses/mongo_reply.js:127:5)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:379:22)
+Server started at localhost:3000
+Search request: doctor near 117 Gibb St, Birmingham, West Midlands B9 4AA, UK
+Making request to google...
+Google request done
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+Search request: grocery_or_supermarket near 117 Gibb St, Birmingham, West Midlands B9 4AA, UK
+Making request to google...
+Google request done
+results
+results
+results
+results
+results
+Search request: cafe near 117 Gibb St, Birmingham, West Midlands B9 4AA, UK
+Making request to google...
+Google request done
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+match St Martin's Tea Lounge
+match Bay Leaf
+match The Coffee Room
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+ReferenceError: results is not defined
+    at /home/ubuntu/way-to-go/app.js:122:19
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:13:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+    at MongoReply.parseBody (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/responses/mongo_reply.js:127:5)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:379:22)
+Server started at localhost:3000
+Search request: cafe near 25 Heath Mill Ln, Birmingham, West Midlands B9 4AE, UK
+Making request to google...
+Google request done
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+match St Martin's Tea Lounge
+match The Coffee Room
+match Bay Leaf
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+ReferenceError: results is not defined
+    at /home/ubuntu/way-to-go/app.js:122:19
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:13:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+    at MongoReply.parseBody (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/responses/mongo_reply.js:127:5)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:379:22)
+Server started at localhost:3000
+Generic Google Maps api request
+Search request: cafe near 117 Gibb St, Birmingham, West Midlands B9 4AA, UK
+Making request to google...
+Google request done
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+match St Martin's Tea Lounge
+match Bay Leaf
+match The Coffee Room
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+ReferenceError: results is not defined
+    at /home/ubuntu/way-to-go/app.js:122:19
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:13:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+    at MongoReply.parseBody (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/responses/mongo_reply.js:127:5)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:379:22)
+Server started at localhost:3000
+Server started at localhost:3000
+Search request: cafe near 117 Gibb St, Birmingham, West Midlands B9 4AA, UK
+Making request to google...
+Google request done
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+match St Martin's Tea Lounge
+match Bay Leaf
+match The Coffee Room
+
+/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:428
+        throw err;
+              ^
+ReferenceError: results is not defined
+    at app.get.store.get.data.results.(anonymous function).general (/home/ubuntu/way-to-go/app.js:117:23)
+    at forEachType (/home/ubuntu/way-to-go/app.js:23:7)
+    at /home/ubuntu/way-to-go/app.js:113:15
+    at exports.get (/home/ubuntu/way-to-go/lib/store.js:13:7)
+    at Cursor.nextObject (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:521:5)
+    at Cursor.nextObject.commandHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/cursor.js:504:12)
+    at g (events.js:185:14)
+    at EventEmitter.emit (events.js:115:20)
+    at Db._callHandler (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/db.js:1413:25)
+    at Server.connect.connectionPool.on.server._serverState (/home/ubuntu/way-to-go/node_modules/mongodb/lib/mongodb/connection/server.js:421:30)
+Server started at localhost:3000
+Server started at localhost:3000
+Search request: cafe near 117 Gibb St, Birmingham, West Midlands B9 4AA, UK
+Making request to google...
+Google request done
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+results
+match St Martin's Tea Lounge
+match Bay Leaf
+match The Coffee Room
