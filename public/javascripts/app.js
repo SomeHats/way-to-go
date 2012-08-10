@@ -511,8 +511,7 @@ window.require.define({"search": function(exports, require, module) {
             $.mobile.showPageLoadingMsg();
             $('#searchMap').height($(window).innerHeight() - ($('#map [data-role=header]').outerHeight() + $('#map [data-role=footer]').outerHeight() + 2));
             if (Data.geolocAdd && near.trim().toLowerCase() === Data.geolocAdd.trim().toLowerCase()) {
-              _this.draw(Data.lastLatlng);
-              return _this.drawList();
+              return _this.draw(Data.lastLatlng);
             } else {
               return Geocode.getLatLong(near, _this.draw, function() {
                 return alert('Could not draw map :(');
@@ -523,43 +522,6 @@ window.require.define({"search": function(exports, require, module) {
           }
         }
       });
-    };
-
-    Search.prototype.drawList = function() {
-      var compare, listResults, result, _i, _len, _ref;
-      listResults = [];
-      compare = function(a, b) {
-        if (a.general) {
-          if (b.general) {
-            if (a.general < b.general) {
-              return -1;
-            } else if (a.general > b.general) {
-              return 1;
-            } else {
-              return 0;
-            }
-          } else {
-            return 1;
-          }
-        } else {
-          if (b.general) {
-            return -1;
-          } else {
-            return 0;
-          }
-        }
-      };
-      _ref = _this.data.results;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        result = _ref[_i];
-        if (result.general) {
-          result.generalColour = getColour(result.general);
-          result.general = Math.round(result.general * 10);
-        }
-        listResults.push(result);
-      }
-      console.log(listResults);
-      return $('#searchList ul').html(list(listResults)).listview('refresh');
     };
 
     Search.prototype.draw = function(center) {
@@ -678,6 +640,8 @@ window.require.define({"search": function(exports, require, module) {
                 place.reviews.push(review);
               }
             }
+            console.log('Pre Render');
+            console.log(place);
             $('#infoPanel ul').html(render(place));
             return $('#infoPanel ul').listview('refresh');
           } else {

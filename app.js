@@ -105,7 +105,6 @@ app.get('/api/search/:term/:near', function(req, res) {
             lat: data.results[i].geometry.location.lat,
             lng: data.results[i].geometry.location.lng
           }
-          console.log('results');
           store.get('places', query, function(place, i) {
             if (place) {
               console.log('match ' + place.name);

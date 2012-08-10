@@ -27,42 +27,12 @@ class Search
 
 					if Data.geolocAdd and near.trim().toLowerCase() is Data.geolocAdd.trim().toLowerCase()
 						_this.draw Data.lastLatlng
-						_this.drawList()
 					else
 						Geocode.getLatLong near, _this.draw, ->
 							alert 'Could not draw map :('
 
 				else
 					alert "Something went wrong :(\n(toilets aren't supported yet)"
-
-	drawList: ->
-		listResults = []
-		compare = (a, b) ->
-			if a.general
-				if b.general
-					if a.general < b.general
-						return -1
-					else if a.general > b.general
-						return 1
-					else
-						return 0
-				else
-					return 1
-			else
-				if b.general
-					return -1
-				else
-					return 0
-
-		for result in _this.data.results
-			if result.general
-				result.generalColour = getColour result.general
-				result.general = Math.round result.general * 10
-			listResults.push result
-
-		console.log listResults
-
-		$('#searchList ul').html(list listResults).listview 'refresh'
 
 	draw: (center) ->
 		compare = (a, b) ->
@@ -174,6 +144,8 @@ class Search
 								review.author_name = 'Anonymous'
 
 							place.reviews.push review
+					console.log 'Pre Render'
+					console.log place
 					$('#infoPanel ul').html render place
 					$('#infoPanel ul').listview 'refresh'
 				else
